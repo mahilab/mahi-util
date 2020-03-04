@@ -2,7 +2,7 @@
 
 using namespace mahi::util;
 
-// See JSON for Modern C++ for more examples
+// See JSON for Modern C++ for more examples:
 // https://github.com/nlohmann/json
 
 int main(int argc, char const *argv[])
@@ -36,8 +36,6 @@ int main(int argc, char const *argv[])
         for (auto& i : v)
             std::cout << i << std::endl;
     }
-
-
 
     return 0;
 }
