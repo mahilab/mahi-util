@@ -104,7 +104,11 @@ target_include_directories(util
 )
 
 # link libraries
-target_link_libraries(util PUBLIC winmm Pdh fmt::fmt)
+target_link_libraries(util PUBLIC fmt::fmt)
+
+if(WIN32)
+    target_link_libraries(util PUBLIC winmm Pdh Version)
+endif()
 
 #===============================================================================
 # WINDOWS ONLY

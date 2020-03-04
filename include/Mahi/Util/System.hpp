@@ -73,6 +73,12 @@ bool disable_realtime();
 /// Gets the operating system's ID number of the calling thread
 uint32 get_thread_id();
 
+/// Gets string name of the OS
+const std::string& os_name();
+
+/// Gets string representation of the OS version
+const std::string& os_version();
+
 //==============================================================================
 // PEROFRMANCE MONITORING FUNCTIONS
 //==============================================================================

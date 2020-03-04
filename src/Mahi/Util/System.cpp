@@ -17,6 +17,8 @@
 #include <sys/syscall.h>
 #include <time.h>
 #include <unistd.h>
+#include <errno.h>
+#include <sys/sysctl.h>
 #endif
 
 namespace mahi {
@@ -329,6 +331,102 @@ uint32 get_thread_id() {
     return static_cast<unsigned int>(tid64);
     #endif
 }
+
+#ifdef _WIN32
+
+struct VersionGetter
+{
+    VersionGetter()
+    {
+        const auto system = L"kernel32.dll";
+        DWORD dummy;
+        const auto cbInfo =
+            ::GetFileVersionInfoSizeExW(FILE_VER_GET_NEUTRAL, system, &dummy);
+        std::vector<char> buffer(cbInfo);
+        ::GetFileVersionInfoExW(FILE_VER_GET_NEUTRAL, system, dummy, buffer.size(), &buffer[0]);
+        void *p = nullptr;
+        UINT size = 0;
+        ::VerQueryValueW(buffer.data(), L"\\", &p, &size);
+        assert(size >= sizeof(VS_FIXEDFILEINFO));
+        assert(p != nullptr);
+        auto pFixed = static_cast<const VS_FIXEDFILEINFO *>(p);
+        std::stringstream ss;
+        ss << HIWORD(pFixed->dwFileVersionMS) << '.'
+           << LOWORD(pFixed->dwFileVersionMS) << '.'
+           << HIWORD(pFixed->dwFileVersionLS) << '.'
+           << LOWORD(pFixed->dwFileVersionLS) << '\n';
+        ver = ss.str();
+    }
+    
+    std::string ver;
+};
+
+const std::string& os_name() {
+    static std::string name = "Windows";
+    return name;
+}
+
+const std::string& os_version()
+{
+    static VersionGetter getter;
+    return getter.ver;
+}
+
+#elif (__APPLE__)
+
+struct NameGetter {
+    NameGetter() {
+        FILE* stdoutFile = popen("sw_vers -productName","r");
+        if (stdoutFile) {
+            char buff[32];
+            char* stdout = fgets(buff, sizeof(buff), stdoutFile);
+            name = stdout;
+            if (!name.empty() && name[name.length()-1] == '\n')
+                name.erase(name.length()-1);
+            pclose(stdoutFile);
+        }
+    }
+    std::string name = "N/A";
+};
+
+struct VersionGetter {
+    VersionGetter() {
+        FILE* stdoutFile = popen("sw_vers -productVersion","r");
+        if (stdoutFile) {
+            char buff[32];
+            char* stdout = fgets(buff, sizeof(buff), stdoutFile);
+            ver = stdout;
+            if (!ver.empty() && ver[ver.length()-1] == '\n')
+                ver.erase(ver.length()-1);
+            pclose(stdoutFile);
+        }
+    }
+    std::string ver = "";
+};
+
+const std::string& os_name() {
+    static NameGetter getter;
+    return getter.name;
+}
+
+const std::string& os_version() {
+    static VersionGetter getter;
+    return getter.ver;
+}
+
+#else
+
+const std::string& os_name() {
+    static std::string name = "UNKNOWN"; // TODO 
+    return name;
+}
+
+const std::string& os_version() {
+    static std::string ver = "UNKNOWN"; // TODO
+    return ver;
+}
+
+#endif
 
 //==============================================================================
 // PEROFRMANCE MONITORING FUNCTIONS (WINDOWS)
