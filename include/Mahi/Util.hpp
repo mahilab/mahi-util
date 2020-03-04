@@ -36,3 +36,13 @@
 #include <fmt/format.h>
 #include <fmt/printf.h>
 #include <fmt/color.h>
+#include <nlohmann/json.hpp>
+
+namespace mahi {
+namespace util {
+
+// import all of json
+using namespace nlohmann;
+
+} // namespace util
+} // namespace mahi

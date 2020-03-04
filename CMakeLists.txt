@@ -8,10 +8,10 @@ cmake_minimum_required(VERSION 3.13.0)
 # USER OPTIONS
 #===============================================================================
 
-option(MAHI_UTIL_EXAMPLES   "Turn ON to build example executable(s)" ON)
-option(MAHI_UTIL_COROUTINES "Turn ON to build experimental coroutine support" ON)
-option(MAHI_UTIL_DEFAULT_LOG     "Turn ON to enable a default log output to console/file" ON)
-option(MAHI_UTIL_LOG_CAPTURE_FILE "Turn ON to enable filename capture in logs" ON)
+option(MAHI_UTIL_EXAMPLES         "Turn ON to build example executable(s)"                 ON)
+option(MAHI_UTIL_COROUTINES       "Turn ON to build experimental coroutine support"        ON)
+option(MAHI_UTIL_DEFAULT_LOG      "Turn ON to enable a default log output to console/file" ON)
+option(MAHI_UTIL_LOG_CAPTURE_FILE "Turn ON to enable filename capture in logs"             ON)
 
 #===============================================================================
 # FRONT MATTER
@@ -50,7 +50,7 @@ set(JSON_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/json/include)
 add_subdirectory(3rdparty/fmt)
 install(TARGETS fmt EXPORT mahi-util-targets LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
-# JSON
+# CXXOPTS
 set(CXXOPTS_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/cxxopts/include)
 
 #===============================================================================
