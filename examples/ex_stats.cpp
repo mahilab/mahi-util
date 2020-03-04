@@ -1,5 +1,6 @@
 #include <Mahi/Util.hpp>
 #include <vector>
+#include <array>
 #include <memory>
 
 using namespace mahi::util;
@@ -8,6 +9,10 @@ template <template <typename, typename> class Container,  typename T, typename A
 T mean2(const Container<T, A> & c)
 {
   return T();
+}
+
+auto get() {
+    return 3.0f;
 }
 
 int main(int argc, char const *argv[])
@@ -27,7 +32,7 @@ int main(int argc, char const *argv[])
     print("Std. Dev. S. {}",sds);
 
     double m, b;
-    std::vector<double> y(11);
+    std::array<double,11> y; // can use arrays too
     linspace(20,100,y);
     linear_regression(x,y,m,b);
 

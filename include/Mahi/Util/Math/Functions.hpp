@@ -21,6 +21,7 @@
 #include <complex>
 #include <vector>
 #include <memory>
+#include <cassert>
 
 namespace mahi {
 namespace util {
@@ -77,10 +78,6 @@ inline bool isEven(int value);
 /// Returns true if an integer is odd
 inline bool isOdd(int value);
 
-/// Creates an evenly space array of N values between a and b
-template <template <typename, typename> class Container,  typename T, typename A=std::allocator<T>, typename R>
-inline void linspace(R a, R b, Container<T,A>& array);
-
 /// Clamps a float between min and max
 template <typename T>
 inline T clamp(T value, T min, T max);
@@ -111,22 +108,22 @@ inline T interp(T x, T x0, T x1, T y0, T y1);
 
 /// Determine order of magnitude of number
 template <typename T>
-inline int orderOfMagnitude(T value);
+inline int order_of_mag(T value);
 
 /// Precison
 inline std::size_t precision(int order);
 
 /// Rounds a float up to the nearest interval
 template <typename T>
-inline T roundUpToNearest(T value, T interval);
+inline T round_up_nearest(T value, T interval);
 
 /// Rounds a float down to the nearest interval
 template <typename T>
-inline T roundDownToNearest(T value, T interval);
+inline T round_down_nearest(T value, T interval);
 
 /// Rounds a float up or down to the nearest interval
 template <typename T>
-inline T roundToNearest(T value, T interval);
+inline T round_nearest(T value, T interval);
 
 /// Returns minimum value in a vector
 template <typename T, typename TArray>
@@ -148,25 +145,29 @@ inline T sigmoid(T a);
 // STATISTICS
 //==============================================================================
 
+/// Creates an evenly space array of N values between a and b
+template <class Container, typename R>
+inline void linspace(R a, R b, Container& array);
+
 /// Computes the sum of a vector of floats
-template <template <typename, typename> class Container,  typename T, typename A=std::allocator<T> >
-inline T sum(const Container<T,A>& data);
+template <class Container>
+inline auto sum(const Container& data);
 
 /// Computes the mean of a vector of floats
-template <template <typename, typename> class Container,  typename T, typename A=std::allocator<T> >
-inline T mean(const Container<T,A> & c);
+template <class Container>
+inline auto mean(const Container& c);
 
 /// Returns the population standard deviation of a vector of data
-template <template <typename, typename> class Container,  typename T, typename A=std::allocator<T> >
-inline T stddev_p(const Container<T,A>& data, T* meanOut = nullptr);
+template <class Container>
+inline auto stddev_p(const Container& data);
 
 /// Returns the sample standard deviation of a vector of data
-template <template <typename, typename> class Container,  typename T, typename A=std::allocator<T> >
-inline T stddev_s(const Container<T,A>& data, T* meanOut = nullptr);
+template <class Container>
+inline auto stddev_s(const Container& data);
 
 /// Computes a linear regression slope and intercept {m, b} for y = m*x + b
-extern void linear_regression(const std::vector<double>& x,
-                              const std::vector<double>& y, double& mOut, double& bOut);
+template <class ContainerX, class ContainerY, typename T>
+inline void linear_regression(const ContainerX& x, const ContainerY& y, T& mOut, T& bOut);
 
 /// Computes the sample mean and covariance for a multivariate gaussian
 /// distribution, where the second dimension of sample_data (cols) correspond to

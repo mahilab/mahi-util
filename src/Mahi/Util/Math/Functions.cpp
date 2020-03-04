@@ -8,33 +8,6 @@
 namespace mahi {
 namespace util {
 
-extern void linear_regression(const std::vector<double>& x, const std::vector<double>& y, double& mOut, double& bOut) {
-    if (x.size() != y.size()) {
-        LOG(Error) << "Length of x (" << x.size() << ") not equal to length of y (" << y.size() << ")";
-        return;
-    }
-
-    double xbar = mean(x);
-    double ybar = mean(y);
-    double xbar2 = xbar * xbar;
-    double xbarybar = xbar * ybar;
-
-    std::size_t n = x.size();
-    std::vector<double> x2_xbar2(n);
-    std::vector<double> xy_xbarybar(n);
-
-    for (std::size_t i = 0; i < n; ++i) {
-        x2_xbar2[i]    = x[i] * x[i] - xbar2;
-        xy_xbarybar[i] = x[i] * y[i] - xbarybar;
-    }
-
-    double sigmax2  = mean(x2_xbar2);
-    double sigmaxy = mean(xy_xbarybar);
-
-    mOut = sigmaxy / sigmax2;
-    bOut = -xbar * mOut + ybar;
-}
-
 extern void gauss_mlt_params(const std::vector<std::vector<double>>& sample_data, std::vector<double>& sample_mean, std::vector<std::vector<double>>& sample_cov) {
     std::size_t N = sample_data.size();
     std::size_t sample_dim;

@@ -14,20 +14,6 @@ inline bool isOdd(int value) {
     return (value % 2);
 }
 
-template <template <typename, typename> class Container,  typename T, typename A, typename R>
-inline void linspace(R a, R b, Container<T,A>& array) {
-    if (array.size() == 0)
-        return;
-    auto N = array.size();
-    T aa = static_cast<T>(a);
-    T bb = static_cast<T>(b);
-    T delta = (bb - aa) / static_cast<T>(N - 1);
-    array[0] = aa;
-    for (std::size_t i = 1; i < N - 1; i++)
-        array[i] = array[i - 1] + delta;
-    array[N - 1] = bb;
-}
-
 template <typename T>
 inline T clamp(T value, T min, T max) {
     return value <= min ? min : value >= max ? max : value;
@@ -71,7 +57,7 @@ inline T interp(T x, T x0, T x1, T y0, T y1) {
 }
 
 template <typename T>
-inline int orderOfMagnitude(T value) {
+inline int order_of_mag(T value) {
     if (value == 0)
         return 0;
     else
@@ -90,7 +76,7 @@ inline std::size_t precision(int order) {
 }
 
 template <typename T>
-inline T roundUpToNearest(T value, T interval)
+inline T round_up_nearest(T value, T interval)
 {
     if (interval == 0)
         return value;
@@ -104,7 +90,7 @@ inline T roundUpToNearest(T value, T interval)
 }
 
 template <typename T>
-inline T roundDownToNearest(T value, T interval) {
+inline T round_down_nearest(T value, T interval) {
     if (interval == 0)
         return value;
     T rem = fmod(abs(value), interval);
@@ -117,7 +103,7 @@ inline T roundDownToNearest(T value, T interval) {
 }
 
 template <typename T>
-inline T roundToNearest(T value, T interval) {
+inline T round_nearest(T value, T interval) {
     if (value >= 0) {
         T rem = fmod(value, interval);
         value = rem > interval * static_cast<T>(0.5) ? value + interval - rem : value - rem;
@@ -162,53 +148,83 @@ T sigmoid(T a) {
 // STATISTICS
 //==============================================================================
 
-template <template <typename, typename> class Container,  typename T, typename A>
-inline T sum(const Container<T,A>& data) {
-    T s = 0;
+template <class Container, typename R>
+inline void linspace(R a, R b, Container& array) {
+    if (array.size() == 0)
+        return;
+    auto N = array.size();
+    Container::value_type aa = static_cast<Container::value_type>(a);
+    Container::value_type bb = static_cast<Container::value_type>(b);
+    Container::value_type delta = (bb - aa) / static_cast<Container::value_type>(N - 1);
+    array[0] = aa;
+    for (std::size_t i = 1; i < N - 1; i++)
+        array[i] = array[i - 1] + delta;
+    array[N - 1] = bb;
+}
+
+template <class Container>
+inline auto sum(const Container& data) {
+    Container::value_type s = 0;
     for (std::size_t i = 0; i < data.size(); ++i)
         s += data[i];
     return s;
 }
 
-template <template <typename, typename> class Container,  typename T, typename A>
-inline T mean(const Container<T, A> & data) {
-    T den = static_cast<T>(1) / static_cast<T>(data.size());
-    T mean = 0;
+template <class Container>
+inline auto mean(const Container & data) {
+    Container::value_type den = static_cast<Container::value_type>(1) / static_cast<Container::value_type>(data.size());
+    Container::value_type mean = 0;
     for (std::size_t i = 0; i < data.size(); ++i)
         mean += data[i] * den;
     return mean;
 }
 
-template <template <typename, typename> class Container,  typename T, typename A>
-inline T stddev_p(const Container<T,A>& data, T* meanOut) {
+template <class Container>
+inline auto stddev_p(const Container& data) {
     if (data.size() > 0) {
-        T u = mean(data);
-        Container<T,A> diff(data.size());
-        std::transform(data.begin(), data.end(), diff.begin(), [u](T x) { return x - u; });
-        T sq_sum = std::inner_product(diff.begin(), diff.end(), diff.begin(), 0);
-        if (meanOut)
-            *meanOut = u;
+        Container::value_type u = mean(data);
+        auto diff = data;
+        std::transform(data.begin(), data.end(), diff.begin(), [u](Container::value_type x) { return x - u; });
+        Container::value_type sq_sum = std::inner_product(diff.begin(), diff.end(), diff.begin(), Container::value_type(0));
         return std::sqrt(sq_sum / data.size());
     }
     else {
-        return 0;
+        return Container::value_type(0);
     }
 }
 
-template <template <typename, typename> class Container,  typename T, typename A>
-inline T stddev_s(const Container<T,A>& data, T* meanOut) {
+template <class Container>
+inline auto stddev_s(const Container& data) {
     if (data.size() > 1) {
-        T u = mean(data);
-        Container<T,A> diff(data.size());
-        std::transform(data.begin(), data.end(), diff.begin(), [u](T x) { return x - u; });
-        T sq_sum = std::inner_product(diff.begin(), diff.end(), diff.begin(), 0);
-        if (meanOut)
-            *meanOut = u;
+        Container::value_type u = mean(data);
+        auto diff = data;
+        std::transform(data.begin(), data.end(), diff.begin(), [u](Container::value_type x) { return x - u; });
+        Container::value_type sq_sum = std::inner_product(diff.begin(), diff.end(), diff.begin(), Container::value_type(0));
         return std::sqrt(sq_sum / (data.size() - 1));
     }
     else {
-        return 0;
+        return Container::value_type(0);
     }
+}
+
+template <class ContainerX, class ContainerY, typename T>
+inline void linear_regression(const ContainerX& x, const ContainerY& y, T& mOut, T& bOut) {
+    assert(x.size() == y.size());
+    auto xbar = mean(x);
+    auto ybar = mean(y);
+    auto xbar2 = xbar * xbar;
+    auto xbarybar = xbar * ybar;
+    auto n = x.size();
+    auto x2_xbar2 = x;
+    auto xy_xbarybar = x;
+    for (std::size_t i = 0; i < n; ++i) {
+        x2_xbar2[i]    = x[i] * x[i] - xbar2;
+        xy_xbarybar[i] = x[i] * y[i] - xbarybar;
+    }
+    T sigmax2 = static_cast<T>(mean(x2_xbar2));
+    T sigmaxy = static_cast<T>(mean(xy_xbarybar));
+    mOut = sigmaxy / sigmax2;
+    bOut = -xbar * mOut + ybar;
 }
 
 } // namespace util

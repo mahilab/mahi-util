@@ -27,6 +27,9 @@ namespace util {
 template <typename T>
 class RingBuffer {
 public:
+
+    typedef T value_type;
+
     /// Constructor
     RingBuffer(std::size_t capacity)
         : capacity_(capacity),
@@ -151,10 +154,7 @@ private:
 } // namespace util
 } // namespace mahi
 
-//==============================================================================
-// CLASS DOCUMENTATION
-//==============================================================================
-//
+
 // https://en.wikipedia.org/wiki/Circular_buffer
 //
 //                                   ILLUSION               REALITY
