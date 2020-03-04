@@ -1,5 +1,6 @@
 #include <Mahi/Util/Math/Constants.hpp>
 #include <limits>
+#include <cmath>
 
 namespace mahi {
 namespace util {
@@ -9,8 +10,11 @@ namespace util {
 //==============================================================================
 
 const double PI    = 3.141592653589793238462643383279502884;
+const double HALFPI = PI * 0.5;
+const double TWOPI = 2 * PI;
 const double E     = 2.718281828459045235360287471352662497;
-const double SQRT2 = sqrt(2.0);
+const double SQRT2 = std::sqrt(2.0);
+const double SQRT3 = std::sqrt(3.0);
 const double EPS   = std::numeric_limits<double>::epsilon();
 const double INF   = std::numeric_limits<double>::infinity();
 const double NaN   = std::numeric_limits<double>::quiet_NaN();

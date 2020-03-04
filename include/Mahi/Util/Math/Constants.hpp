@@ -1,7 +1,6 @@
 // MIT License
 //
-// MEL - Mechatronics Engine & Library
-// Copyright (c) 2019 Mechatronics and Haptic Interfaces Lab - Rice University
+// Copyright (c) 2020 Mechatronics and Haptic Interfaces Lab - Rice University
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,12 +24,15 @@ namespace util {
 // GENERIC
 //==============================================================================
 
-extern const double PI;    ///< pi
-extern const double E;     ///< e
-extern const double SQRT2; /// sqrt(2)
-extern const double EPS;   ///< smallest double such that 1.0 + EPS != 1.0
-extern const double INF;   ///< positive infinity (negate for negative infinity)
-extern const double NaN;   ///< not-a-number
+extern const double PI;     ///< pi
+extern const double HALFPI; ///< pi/2
+extern const double TWOPI;  ///< 2*pi
+extern const double E;      ///< e
+extern const double SQRT2;  /// sqrt(2)
+extern const double SQRT3;  /// sqrt(3)
+extern const double EPS;    ///< smallest double such that 1.0 + EPS != 1.0
+extern const double INF;    ///< positive infinity (negate for negative infinity)
+extern const double NaN;    ///< not-a-number
 
 //==============================================================================
 // CONVERSIONS

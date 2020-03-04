@@ -14,6 +14,16 @@
 #include <Mahi/Util/Concurrency/NamedMutex.hpp>
 #include <Mahi/Util/Concurrency/Spinlock.hpp>
 
+#include <Mahi/Util/Math/Butterworth.hpp>
+#include <Mahi/Util/Math/Chirp.hpp>
+#include <Mahi/Util/Math/Constants.hpp>
+#include <Mahi/Util/Math/Differentiator.hpp>
+#include <Mahi/Util/Math/Filter.hpp>
+#include <Mahi/Util/Math/Functions.hpp>
+#include <Mahi/Util/Math/Integrator.hpp>
+#include <Mahi/Util/Math/TimeFunction.hpp>
+#include <Mahi/Util/Math/Waveform.hpp>
+
 #include <Mahi/Util/Logging/Csv.hpp>
 #include <Mahi/Util/Logging/Log.hpp>
 #include <Mahi/Util/Logging/File.hpp>

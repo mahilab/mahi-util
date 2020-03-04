@@ -3,6 +3,7 @@
     "files.associations": {
         "*.in": "cmake",
         "thread": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "cmath": "cpp"
     }
 }

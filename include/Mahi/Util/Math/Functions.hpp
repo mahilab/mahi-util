@@ -17,86 +17,156 @@
 
 #pragma once
 
+#include <cmath>
 #include <complex>
 #include <vector>
+#include <memory>
 
 namespace mahi {
 namespace util {
 
 //==============================================================================
+// USINGS
+//==============================================================================
+
+using std::abs;
+using std::fmod;
+using std::remainder;
+
+using std::exp;
+using std::log;
+using std::log10;
+using std::log2;
+
+using std::pow;
+using std::sqrt;
+using std::cbrt;
+using std::hypot;
+
+using std::sin;
+using std::cos;
+using std::tan;
+using std::asin;
+using std::acos;
+using std::atan;
+using std::atan2;
+
+using std::sinh;
+using std::cosh;
+using std::tanh;
+using std::asinh;
+using std::acosh;
+using std::atanh;
+
+using std::ceil;
+using std::floor;
+using std::trunc;
+using std::round;
+
+//==============================================================================
 // GENERIC FUNCTIONS
 //==============================================================================
 
-/// Returns -1 for negative numbers, 1 for positive numbers, and 0 for numbers
-/// equal to 0.
+/// Returns -1 for negative numbers, 1 for positive numbers, and 0 for numbers equal to 0.
 template <typename T>
-int sign(T val) {
-    return (T(0) < val) - (val < T(0));
-}
+inline int sign(T val);
 
-/// Returns minimum value in a vector
-extern double min(const std::vector<double>& values);
+/// Returns true if an integer is even
+inline bool isEven(int value);
 
-/// Returns maximum value in a vector
-extern double max(const std::vector<double>& values);
+/// Returns true if an integer is odd
+inline bool isOdd(int value);
 
-/// Clamps value between min and max
-extern double saturate(double value, double min, double max);
+/// Creates an evenly space array of N values between a and b
+template <template <typename, typename> class Container,  typename T, typename A=std::allocator<T>, typename R>
+inline void linspace(R a, R b, Container<T,A>& array);
+
+/// Clamps a float between min and max
+template <typename T>
+inline T clamp(T value, T min, T max);
 
 /// Clamps value between -abs_max and +abs_max
-extern double saturate(double value, double abs_max);
+template <typename T>
+inline T clamp(T value, T abs_max);
 
-/// Returns true if a and b are approximately equal to each other within a
-/// tolerance (machine precision by default)
-extern bool approx_equal(double a, double b, double tolerance);
+/// Clamps a float between 0 and 1
+template <typename T>
+inline T clamp01(T value);
 
-/// Returns a linearly spaced vector with #n elements between #a and #b.
-extern std::vector<double> linspace(double a, double b, std::size_t n);
+/// Wraps an angle in radians to within [-PI, PI)
+template <typename T>
+inline T wrap_to_pi(T angle);
 
-/// Computes a proportional-derivative control effort given gains, reference
-/// state, and current state
-extern double pd_controller(double kp,
-                            double kd,
-                            double x_ref,
-                            double x,
-                            double xd_ref,
-                            double xd);
+/// Wraps an angle in radians to within [0, 2*PI)
+template <typename T>
+inline T wrap_to_2pi(T angle);
+
+/// Determines if two floats a and b are approximately equal
+template <typename T>
+inline bool approximately(T a, T b, T tol = EPS);
+
+/// Interpolate values
+template <typename T>
+inline T interp(T x, T x0, T x1, T y0, T y1);
+
+/// Determine order of magnitude of number
+template <typename T>
+inline int orderOfMagnitude(T value);
+
+/// Precison
+inline std::size_t precision(int order);
+
+/// Rounds a float up to the nearest interval
+template <typename T>
+inline T roundUpToNearest(T value, T interval);
+
+/// Rounds a float down to the nearest interval
+template <typename T>
+inline T roundDownToNearest(T value, T interval);
+
+/// Rounds a float up or down to the nearest interval
+template <typename T>
+inline T roundToNearest(T value, T interval);
+
+/// Returns minimum value in a vector
+template <typename T, typename TArray>
+T min_element(const TArray& values);
+
+/// Returns maximum value in a vector
+template <typename T, typename TArray>
+T max_element(const TArray& values);
+
+/// Computes a proportional-derivative control effort given gains, referenc state, and current state
+template <typename T>
+inline T pd_controller(T kp,T kd,T x_ref,T x,T xd_ref,T xd);
 
 /// Logistic sigmoid
-extern double sigmoid(double a);
-
-/// Computes the automatic derivative of a function.
-extern double auto_diff(std::complex<double> (*f)(std::complex<double>),
-                        double x);
-
-/// Wraps an angle in radians to the interval [0 2*PI]
-extern double wrap_to_2pi(double radians);
-
-/// Wraps an angle in radians to the interval [-pi pi]
-extern double wrap_to_pi(double radians);
+template <typename T>
+inline T sigmoid(T a);
 
 //==============================================================================
 // STATISTICS
 //==============================================================================
 
-/// Returns the absolute value of a vector
-extern std::vector<double> abs_vec(const std::vector<double>& data);
+/// Computes the sum of a vector of floats
+template <template <typename, typename> class Container,  typename T, typename A=std::allocator<T> >
+inline T sum(const Container<T,A>& data);
 
-/// Returns the sum of a vector of data
-extern double sum(const std::vector<double>& data);
-
-/// Returns the mean of a vector of data
-extern double mean(const std::vector<double>& data);
+/// Computes the mean of a vector of floats
+template <template <typename, typename> class Container,  typename T, typename A=std::allocator<T> >
+inline T mean(const Container<T,A> & c);
 
 /// Returns the population standard deviation of a vector of data
-extern double stddev_p(const std::vector<double>& data);
+template <template <typename, typename> class Container,  typename T, typename A=std::allocator<T> >
+inline T stddev_p(const Container<T,A>& data, T* meanOut = nullptr);
 
 /// Returns the sample standard deviation of a vector of data
-extern double stddev_s(const std::vector<double>& data);
+template <template <typename, typename> class Container,  typename T, typename A=std::allocator<T> >
+inline T stddev_s(const Container<T,A>& data, T* meanOut = nullptr);
 
 /// Computes a linear regression slope and intercept {m, b} for y = m*x + b
-extern std::vector<double> linear_regression(const std::vector<double>& x,
-                                             const std::vector<double>& y);
+extern void linear_regression(const std::vector<double>& x,
+                              const std::vector<double>& y, double& mOut, double& bOut);
 
 /// Computes the sample mean and covariance for a multivariate gaussian
 /// distribution, where the second dimension of sample_data (cols) correspond to
@@ -109,3 +179,5 @@ extern void gauss_mlt_params(
 
 }  // namespace util
 }  // namespace mahi
+
+#include <Mahi/Util/Math/Detail/Functions.inl>

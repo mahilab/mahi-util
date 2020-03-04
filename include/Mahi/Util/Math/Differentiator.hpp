@@ -21,6 +21,7 @@
 namespace mahi {
 namespace util {
 
+/// Differentites a continous signal
 class Differentiator {
 public:
     enum Technique { BackwardDifference, CentralDifference };
