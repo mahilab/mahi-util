@@ -11,7 +11,7 @@ macro(mahi_util_example target)
     set_target_properties(${target} PROPERTIES DEBUG_POSTFIX -d)
 endmacro(mahi_util_example)
 
-mahi_util_example(console)
+mahi_util_example(print)
 mahi_util_example(csv)
 mahi_util_example(time)
 mahi_util_example(log)

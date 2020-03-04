@@ -169,6 +169,26 @@ void reset_text_color() {
     SetConsoleTextAttribute(stdout_handle, g_csbiInfo.wAttributes);
 }
 
+struct VirtualTerminalInit {
+    VirtualTerminalInit() {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        DWORD consoleMode;
+        GetConsoleMode(hConsole, &consoleMode);
+        initMode = consoleMode;
+        consoleMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+        SetConsoleMode(hConsole, consoleMode);
+    }
+    ~VirtualTerminalInit() {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleMode(hConsole, initMode);
+    }
+    DWORD initMode;
+};
+
+void enable_virtual_console() {
+    static VirtualTerminalInit init;
+}
+
 #else
 
 void set_text_color(Color foreground, Color background) {
@@ -244,6 +264,10 @@ void set_text_color(Color foreground, Color background) {
 void reset_text_color() {
     Lock lock(g_console_mutex);
     std::cout << "\x1B[0m\x1B[0K";
+}
+
+void enable_virtual_console() {
+    // DO NOTHING FOR NOW
 }
 
 #endif

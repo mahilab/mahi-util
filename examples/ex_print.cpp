@@ -2,40 +2,24 @@
 #include <vector>
 #include <string>
 
-// On Windows, Powershell and CMD prompt do not support ANSI escape sequences by default.
-// Constructing an instance of this struct wiill enable support for this process.
-#ifdef _WIN32
-#include <windows.h>
-struct VirtualTerminalInit {
-    VirtualTerminalInit() {
-        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-        DWORD consoleMode;
-        GetConsoleMode(hConsole, &consoleMode);
-        initMode = consoleMode;
-        consoleMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
-        SetConsoleMode(hConsole, consoleMode);
-    }
-    ~VirtualTerminalInit() {
-        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-        SetConsoleMode(hConsole, initMode);
-    }
-    DWORD initMode;
-};
-VirtualTerminalInit g_init;
-#endif
-
 using namespace fmt::literals; // for _a
 using namespace mahi::util;
 
+// if you console is PowerShell, you need to enable virtual console to do styled printing
+// #define POWERSHELL 
+
 int main(int argc, char const *argv[])
 {
-
     
-    // basic fmt usage
+    // basic print usage
     print("Hello, World\n"); 
     print("Hello, my name is {} and I am {} years old.\n", "Evan", 28);
     print("Hello, my name is {1} and I am {0} years old.\n", 28, "Evan");
     print("Hello, my name is {name} and I am {age} years old.\n", "name"_a="Evan", "age"_a=28);
+
+#ifdef POWERSHELL
+    enable_virtual_console();
+#endif
 
     // text styling
     print(fg(fmt::color::chartreuse), "foreground=chartreuse\n");

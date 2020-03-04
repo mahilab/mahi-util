@@ -5,7 +5,7 @@
 namespace mahi {
 namespace util {
 
-// Import fmt::print formatted printing
+// Import fmt::print formatted printing (https://github.com/fmtlib/fmt)
 using fmt::print;
 
 //==============================================================================

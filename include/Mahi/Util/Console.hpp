@@ -27,7 +27,7 @@
 namespace mahi {
 namespace util {
 
-/// Import cxxopts library for Options class and utilites
+/// Import cxxopts library for command line Options class and utilites
 using namespace cxxopts;
 
 //==============================================================================
@@ -83,6 +83,9 @@ void set_text_color(ConsoleColor foreground, ConsoleColor background = ConsoleCo
 
 /// Resets the foreground and background text color to the default style (thread-safe)
 void reset_text_color();
+
+/// Enables virtual console (needed in Windows PowerShell/CMD if using fmt::color with fmt::print aka mahi::util::print)
+void enable_virtual_console();
 
 //==============================================================================
 // CONSOLE INPUT
