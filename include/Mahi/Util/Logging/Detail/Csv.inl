@@ -86,7 +86,7 @@ static bool csv_read_rows(const std::string& filepath, Container2D& data_out, st
 template <typename Container1D>
 bool csv_write_row(const std::string &filepath, const Container1D &data)
 {
-    File file(filepath, File::WriteMode::Truncate);
+    File file(filepath, WriteMode::Truncate);
     std::ostringstream ss;
     ss << std::setprecision(6);
     for (size_t j = 0; j < data.size() - 1; ++j)
@@ -100,7 +100,7 @@ bool csv_write_row(const std::string &filepath, const Container1D &data)
 template <typename Container2D>
 bool csv_write_rows(const std::string &filepath, const Container2D &data)
 {
-    File file(filepath, File::WriteMode::Truncate);
+    File file(filepath, WriteMode::Truncate);
     for (std::size_t i = 0; i < data.size(); i++)
     {
         std::ostringstream ss;
@@ -117,7 +117,7 @@ bool csv_write_rows(const std::string &filepath, const Container2D &data)
 template <typename Container1D>
 bool csv_append_row(const std::string &filepath, const Container1D &data)
 {
-    File file(filepath, File::WriteMode::Append);
+    File file(filepath, WriteMode::Append);
     std::ostringstream ss;
     ss << std::setprecision(6);
     for (size_t j = 0; j < data.size() - 1; ++j)
@@ -131,7 +131,7 @@ bool csv_append_row(const std::string &filepath, const Container1D &data)
 template <typename Container2D>
 bool csv_append_rows(const std::string &filepath, const Container2D &data)
 {
-    File file(filepath, File::WriteMode::Append);
+    File file(filepath, WriteMode::Append);
     for (std::size_t i = 0; i < data.size(); i++)
     {
         std::ostringstream ss;

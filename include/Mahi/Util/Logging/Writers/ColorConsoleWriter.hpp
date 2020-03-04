@@ -16,6 +16,7 @@
 
 #pragma once
 #include <Mahi/Util/Logging/Writers/ConsoleWriter.hpp>
+#include <fmt/format.h>
 
 namespace mahi {
 namespace util {
@@ -34,7 +35,7 @@ public:
         std::string str = Formatter::format(record);
         Lock lock(this->mutex_);
         setColor(record.get_severity());
-        print_string(str);
+        fmt::print("{}",str);
         reset_text_color();
     }
 
@@ -43,19 +44,19 @@ private:
         if (is_tty()) {
             switch (severity) {
                 case Fatal:
-                    set_text_color(Color::White, Color::DarkRed);
+                    set_text_color(ConsoleColor::White, ConsoleColor::DarkRed);
                     break;
                 case Error:
-                    set_text_color(Color::Red);
+                    set_text_color(ConsoleColor::Red);
                     break;
                 case Warning:
-                    set_text_color(Color::Yellow);
+                    set_text_color(ConsoleColor::Yellow);
                     break;
                 case Verbose:
-                    set_text_color(Color::Green);
+                    set_text_color(ConsoleColor::Green);
                     break;
                 case Debug:
-                    set_text_color(Color::Cyan);
+                    set_text_color(ConsoleColor::Cyan);
                     break;
                 default:
                     break;

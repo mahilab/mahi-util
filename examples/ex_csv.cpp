@@ -14,11 +14,7 @@
 //
 // Author(s): Evan Pezent (epezent@rice.edu)
 
-#include <Mahi/Util/Logging/Csv.hpp>
-#include <Mahi/Util/Console.hpp>
-#include <Mahi/Util/Random.hpp>
-#include <Mahi/Util/Timing/Timer.hpp>
-#include <Mahi/Util/Templates/RingBuffer.hpp>
+#include <Mahi/Util.hpp>
 #include <array>
 
 using namespace mahi::util;
@@ -57,12 +53,12 @@ int main() {
     // read back subset of header with offset
     array<string, 5> row;
     csv_read_row(filepath, row, 0, 2);
-    print(row);
+    println(row);
     // read back subset of data with offset as doubles
     array<array<double,5>,5> rows;
     csv_read_rows(filepath, rows, 1, 2);
     for (auto& r : rows) 
-        print(r);
+        println(r);
 
     //=========================================================================
     // Example 3: Logging a Rolling Window of Data
@@ -85,7 +81,7 @@ int main() {
         // set precision of floating poitn numbers
         csv.set_precision(2);
         // simulate a loop
-        print("Starting 10 second loop ...");
+        println("Starting 10 second loop ...");
         Timer timer(hertz(1000));
         Time  t;
         while (t < seconds(10)) {
@@ -99,8 +95,8 @@ int main() {
             t = timer.wait();
         }
         // print timer info to gauge HDD write performance
-        print("Miss Rate: ", timer.get_miss_rate());
-        print("Wait Ratio:", timer.get_wait_ratio());        
+        println("Miss Rate: ", timer.get_miss_rate());
+        println("Wait Ratio:", timer.get_wait_ratio());        
     }
 
     return 0;

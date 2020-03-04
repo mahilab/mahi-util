@@ -18,6 +18,7 @@
 #include <Mahi/Util/Logging/Writers/Writer.hpp>
 #include <Mahi/Util/Concurrency/Mutex.hpp>
 #include <Mahi/Util/Console.hpp>
+#include <fmt/format.h>
 
 namespace mahi {
 namespace util {
@@ -37,7 +38,7 @@ public:
     virtual void write(const LogRecord& record) override {
         std::string str = Formatter::format(record);
         Lock lock(mutex_);
-        print_string(str);
+        fmt::print("{}",str);
     }
 
 protected:

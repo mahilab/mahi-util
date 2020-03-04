@@ -1,6 +1,7 @@
 target_sources(util
     PRIVATE
     Console.cpp
+    Print.cpp
     Random.cpp
     System.cpp
     Types.cpp

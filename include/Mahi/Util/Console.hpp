@@ -55,11 +55,11 @@ bool register_ctrl_handler(bool (*handler)(CtrlEvent));
 typedef volatile std::atomic<bool> ctrl_bool;
 
 //==============================================================================
-// CONSOLE FORMAT
+// CONSOLE COLORS
 //==============================================================================
 
 /// Represents a console text color
-enum class Color {
+enum class ConsoleColor {
     None,
     Black,
     Gray,
@@ -79,7 +79,7 @@ enum class Color {
 };
 
 /// Sets the foreground and background text color in the console (thread-safe)
-void set_text_color(Color foreground, Color background = Color::None);
+void set_text_color(ConsoleColor foreground, ConsoleColor background = ConsoleColor::None);
 
 /// Resets the foreground and background text color to the default style (thread-safe)
 void reset_text_color();
@@ -108,49 +108,6 @@ int get_key_nb();
 /// Prompts the user with a message and waits for Enter to be pressed (thread-safe)
 void prompt(const std::string& message);
 
-//==============================================================================
-// CONSOLE OUTPUT
-//==============================================================================
-
-/// Prints a string to the console using the fastest method the OS offers (thread-safe)
-void print_string(const std::string& str);
-
-/// Prints anything that works with stream operators and then starts a new line (thread-safe)
-template <typename T>
-void print(const T& value) {
-    std::stringstream ss;
-    ss << value << "\n";
-    print_string(ss.str());
-}
-
-// Prints variadic number of arguments with separating spaces and then starts a new line (thread-safe)
-template <typename Arg, typename... Args>
-void print(Arg&& arg, Args&&... args) {
-    std::stringstream ss;
-    ss << std::forward<Arg>(arg);
-    using expander = int[];
-    (void)expander{0, (void(ss << ' ' << std::forward<Args>(args)), 0)...};
-    ss << "\n";
-    print_string(ss.str());
-}
-
-/// Print with color (thread-safe)
-template <typename T>
-void color_print(const T& value, Color foreground, Color background = Color::None) {
-    set_text_color(foreground, background);
-    print(value);
-    reset_text_color();
-}
-
-//==============================================================================
-// FORMATTING
-//==============================================================================
-
-/// Turns basic types into a string
-template <typename T>
-std::string stringify(T value) {
-    return std::to_string(value);
-}
 //==============================================================================
 // MISC
 //==============================================================================

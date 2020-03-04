@@ -14,7 +14,7 @@
 //
 // Author(s): Evan Pezent (epezent@rice.edu)
 //
-#include <Mahi/Util/Console.hpp>
+#include <Mahi/Util.hpp>
 
 using namespace mahi::util;
 
@@ -42,28 +42,28 @@ int main(int argc, char* argv[]) {
     // do things with result:
 
     if (result.count("evan") > 0)
-        print("Hello, my name is Evan!");
+        println("Hello, my name is Evan!");
 
     if (result.count("c") > 0)
-        print("Hello, my name is Craig!");
+        println("Hello, my name is Craig!");
 
     if (result.count("help") > 0)
-        print(options.help());
+        println(options.help());
 
     if (result.count("integer") > 0) {
         int i = result["integer"].as<int>();
-        print("You entered " + stringify(i));
+        println("You entered " + std::to_string(i));
     }
 
     if (result.count("d") > 0) {
         double d = result["d"].as<double>();
-        print("You entered " + stringify(d));
+        println("You entered " + std::to_string(d));
     } 
 
     if (result.count("v")) {
         auto v = result["v"].as<std::vector<int>>();
-        print(v.size());
-        print(v);
+        println(v.size());
+        println(v);
     }
 
     return 0;

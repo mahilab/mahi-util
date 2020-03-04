@@ -3,6 +3,7 @@
 #include <csignal>
 #include <iostream>
 #include <cstdio>
+#include <fmt/format.h>
 
 #ifdef _WIN32
 #include <io.h>
@@ -95,58 +96,58 @@ bool register_ctrl_handler(bool (*handler)(CtrlEvent)) {
 
 #ifdef _WIN32
 
-WORD get_color(Color color, bool background) {
+WORD get_color(ConsoleColor color, bool background) {
     DWORD val = 0;
     switch(color) {
 
-        case Color::None:
+        case ConsoleColor::None:
             if (background)
                 return (g_csbiInfo.wAttributes & ~(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY));
             val = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY;
             break;
 
-        case Color::Black:
+        case ConsoleColor::Black:
             break;
 
-        case Color::White:
+        case ConsoleColor::White:
             val = FOREGROUND_INTENSITY;
-        case Color::Gray:
+        case ConsoleColor::Gray:
             val = val | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
             break;
 
-        case Color::Red:
+        case ConsoleColor::Red:
             val = FOREGROUND_INTENSITY;
-        case Color::DarkRed:
+        case ConsoleColor::DarkRed:
             val = val | FOREGROUND_RED;
             break;
 
-        case Color::Green:
+        case ConsoleColor::Green:
             val = FOREGROUND_INTENSITY;
-        case Color::DarkGreen:
+        case ConsoleColor::DarkGreen:
             val = val | FOREGROUND_GREEN;
             break;
 
-        case Color::Blue:
+        case ConsoleColor::Blue:
             val = FOREGROUND_INTENSITY;
-        case Color::DarkBlue:
+        case ConsoleColor::DarkBlue:
             val = val | FOREGROUND_BLUE;
             break;
 
-        case Color::Cyan:
+        case ConsoleColor::Cyan:
             val = FOREGROUND_INTENSITY;
-        case Color::Aqua:
+        case ConsoleColor::Aqua:
             val = val | FOREGROUND_GREEN | FOREGROUND_BLUE;
             break;
 
-        case Color::Magenta:
+        case ConsoleColor::Magenta:
             val = FOREGROUND_INTENSITY;
-        case Color::Purple:
+        case ConsoleColor::Purple:
             val = val | FOREGROUND_RED | FOREGROUND_BLUE;
             break;
 
-        case Color::Yellow:
+        case ConsoleColor::Yellow:
             val = FOREGROUND_INTENSITY;
-        case Color::Gold:
+        case ConsoleColor::Gold:
             val = val | FOREGROUND_RED | FOREGROUND_GREEN;
             break;
 
@@ -157,7 +158,7 @@ WORD get_color(Color color, bool background) {
         return static_cast<WORD>(val);
 }
 
-void set_text_color(Color foreground, Color background) {
+void set_text_color(ConsoleColor foreground, ConsoleColor background) {
     WORD attributes = get_color(foreground, false) | get_color(background, true);
     Lock lock(g_console_mutex);
     SetConsoleTextAttribute(stdout_handle, attributes);
@@ -380,28 +381,10 @@ int get_key_nb() {
 }
 
 void prompt(const std::string& message) {
-    print_string(message);
+    fmt::print("{}\n",message);
     Lock lock(g_console_mutex);
     getchar();
 }
-
-//==============================================================================
-// CONSOLE OUTPUT
-//==============================================================================
-
-
-
-#ifdef _WIN32
-void print_string(const std::string& str) {
-    Lock lock(g_console_mutex);
-    WriteConsoleA(stdout_handle, str.c_str(), static_cast<DWORD>(str.size()), NULL, NULL);
-}
-#else
-void print_string(const std::string& str) {
-    Lock lock(g_console_mutex);
-    std::cout << str;
-}
-#endif
 
 //==============================================================================
 // MISC

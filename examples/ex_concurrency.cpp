@@ -14,11 +14,7 @@
 //
 // Author(s): Evan Pezent (epezent@rice.edu)
 
-#include <Mahi/Util/Console.hpp>
-#include <Mahi/Util/Concurrency/Mutex.hpp>
-#include <Mahi/Util/Concurrency/Spinlock.hpp>
-#include <Mahi/Util/Concurrency/NamedMutex.hpp>
-#include <Mahi/Util/System.hpp>
+#include <Mahi/Util.hpp>
 #include <thread>
 
 using namespace mahi::util;
@@ -33,48 +29,48 @@ using namespace mahi::util;
 // Terminal 2: lockables named_mutex_B
 
 void thread1_func(Lockable& lockable) {
-    print("Thread 1: Entering. Aquiring lock!");
+    println("Thread 1: Entering. Aquiring lock!");
     Lock lock(lockable);
     sleep(milliseconds(10));
     prompt("Thread 1: Press enter to allow Thread 2 to continue.");
-    print("Thread 1: Exiting");
+    println("Thread 1: Exiting");
 }
 
 void thread2_func(Lockable& lockable) {
-    print("Thread 2: Entering. Can't continue, reached lock!");
+    println("Thread 2: Entering. Can't continue, reached lock!");
     Lock lock(lockable);
     sleep(milliseconds(10));
     prompt("Thread 2: Press enter to allow Main to continue.");
-    print("Thread 2: Exiting");
+    println("Thread 2: Exiting");
 }
 
 int main(int argc, char* argv[]) {
     if (argc > 1) {
         std::string id = argv[1];
         if (id == "mutex") {
-            print("Main: Spawning Threads");
+            println("Main: Spawning Threads");
             Mutex mutex;
             std::thread thread1(thread1_func, std::ref(mutex));
             sleep(milliseconds(1));
             std::thread thread2(thread2_func, std::ref(mutex));
             thread1.join();    // main will wait for thread1 to complete
             thread2.detach();  // but continue despite thread2 completing or not
-            print("Main: Can't continue, reached lock!");
+            println("Main: Can't continue, reached lock!");
             Lock lock(mutex);
             sleep(milliseconds(10));
-            print("Main: Thanks!");
+            println("Main: Thanks!");
         } else if (id == "spinlock") {
-            print("Main: Spawning Threads");
+            println("Main: Spawning Threads");
             Spinlock spinlock;
             std::thread thread1(thread1_func, std::ref(spinlock));
             sleep(milliseconds(1));
             std::thread thread2(thread2_func, std::ref(spinlock));
             thread1.join();    // main will wait for thread1 to complete
             thread2.detach();  // but continue despite thread2 completing or not
-            print("Main: Can't continue, reached lock!");
+            println("Main: Can't continue, reached lock!");
             Lock lock(spinlock);
             sleep(milliseconds(10));
-            print("Main: Thanks!");
+            println("Main: Thanks!");
         }
         else if (id == "named_mutex_A") {
             NamedMutex named_mutex("my_named_mutex");
@@ -87,7 +83,7 @@ int main(int argc, char* argv[]) {
             // exception safe and you run the risk of unlock never getting
             // called.
             named_mutex.lock();
-            print("B can continue now");
+            println("B can continue now");
             named_mutex.unlock();
         }
     }

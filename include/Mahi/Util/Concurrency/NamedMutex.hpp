@@ -28,12 +28,6 @@ namespace util {
 class NamedMutex : public Lockable, NonCopyable {
 public:
 
-    /// Represents mode in which process resources can be opened or created
-    enum OpenMode {
-        OpenOrCreate,  ///< create the object if it does not exit
-        OpenOnly       ///< only attempt to open an existing object
-    };
-
     /// Defaut constructor
     NamedMutex(std::string name, OpenMode mode = OpenOrCreate);
 

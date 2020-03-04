@@ -34,6 +34,18 @@ typedef signed   long long int64;   ///< -9,223,372,036,854,775,808 to +9,223,37
 typedef unsigned long long uint64;  ///<                          0 to 18,446,744,073,709,551,615
 #endif
 
+/// Represents mode in which process resources can be opened or created
+enum OpenMode {
+    OpenOrCreate,  ///< create the object if it does not exit
+    OpenOnly       ///< only attempt to open an existing object
+};
+
+/// Represents mode in which a file is written when it is opened
+enum WriteMode {
+    Truncate = 0, ///< file will be truncated if it exists
+    Append = 1    ///< file will be not be truncated on open
+};
+
 } // namespace util
 } // namespace mahi
 

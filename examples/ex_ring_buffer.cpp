@@ -14,8 +14,7 @@
 //
 // Author(s): Evan Pezent (epezent@rice.edu)
 
-#include <Mahi/Util/Console.hpp>
-#include <Mahi/Util/Templates/RingBuffer.hpp>
+#include <Mahi/Util.hpp>
 
 using namespace mahi::util;
 
@@ -42,19 +41,19 @@ int main() {
             std::cin >> value;
             x.push_front(value);
         } else if (method == "pop_back") {
-            print_string("a: ");
-            print(x.pop_back());
+            println("a: ");
+            println(x.pop_back());
         } else if (method == "pop_front") {
-            print_string("a: ");
-            print(x.pop_front());
+            println("a: ");
+            println(x.pop_front());
         } else if (method == "[]") {
             std::cin >> idx;
-            print_string("a: ");
-            print(x[idx]);
+            println("a: ");
+            println(x[idx]);
         } else if (method == "[]=") {
             std::cin >> idx;
             std::cin >> value;
-            print_string("a: ");
+            println("a: ");
             x[idx] = value;
         } else if (method == "resize") {
             std::cin >> value;

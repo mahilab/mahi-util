@@ -49,23 +49,21 @@ public:
     virtual void write(const LogRecord& record) override {
         std::string str = Formatter::format(record);
         if (record.get_severity() == Fatal)
-            set_text_color(Color::White, Color::Red);
+            set_text_color(ConsoleColor::White, ConsoleColor::Red);
         else if (record.get_severity() == Error)
-            set_text_color(Color::Red, Color::DarkRed);
+            set_text_color(ConsoleColor::Red, ConsoleColor::DarkRed);
         else if (record.get_severity() == Warning)
-            set_text_color(Color::Red, Color::Yellow);
+            set_text_color(ConsoleColor::Red, ConsoleColor::Yellow);
         else if (record.get_severity() == Info)
-            set_text_color(Color::Green, Color::DarkGreen);
+            set_text_color(ConsoleColor::Green, ConsoleColor::DarkGreen);
         else
-            set_text_color(Color::Cyan, Color::Blue);
-        print_string(str);
+            set_text_color(ConsoleColor::Cyan, ConsoleColor::Blue);
+        fmt::print("{}",str);
         reset_text_color();
     }
 };
 
 int main() {
-
-    print("Hey!");
 
     /// Built in logger demonstration (only available if MAHI_DEFAULT_LOG was defined at compile time)
     LOG(Debug) << "This is a Debug log";      // goes nowhere by default
