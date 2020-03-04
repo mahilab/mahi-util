@@ -1,40 +1,43 @@
 #pragma once
 #include <string>
+#include <Mahi/Util/StlStreams.hpp>
 #include <fmt/format.h>
+#include <fmt/color.h>
 
 namespace mahi {
 namespace util {
 
-// Import fmt::print formatted printing (https://github.com/fmtlib/fmt)
-using fmt::print;
+using namespace fmt::literals; // for _a
 
-//==============================================================================
-// VARIADIC PRITNING
-//==============================================================================
+/// Same as fmt::print, but adds new line character
+template <typename... Args>
+void print(const char* format, const Args& ... args) {
+    fmt::vprint(format, fmt::make_format_args(args...));
+    fmt::print("\n");
+}
 
-/// Prints anything that works with stream operators and then starts a new line (thread-safe)
+/// Same as fmt::print, but adds new line character
+template <typename... Args>
+void print(const fmt::v6::text_style& ts, const char* format, const Args& ... args) {
+    fmt::print(ts, format, args...);
+    fmt::print("\n");
+}
+
+/// Prints anything that works with stream operators and then starts a new line
 template <typename T>
-void println(const T& value) {
+void print_var(const T& value) {
     fmt::print("{}\n",value);
 }
 
-// Prints variadic number of arguments with separating spaces and then starts a new line (thread-safe)
+// Prints variadic number of arguments with separating spaces and then starts a new line
 template <typename Arg, typename... Args>
-void println(Arg&& arg, Args&&... args) {
+void print_var(Arg&& arg, Args&&... args) {
     std::stringstream ss;
     ss << std::forward<Arg>(arg);
     using expander = int[];
-    (void)expander{0, (void(ss << ' ' << std::forward<Args>(args)), 0)...};
+    (void)expander{0, (void(ss << ',' << std::forward<Args>(args)), 0)...};
     ss << "\n";
     fmt::print("{}",ss.str());
-}
-
-/// Print with color (thread-safe)
-template <typename T>
-void color_println(const T& value, ConsoleColor foreground, ConsoleColor background = ConsoleColor::None) {
-    set_text_color(foreground, background);
-    print(value);
-    reset_text_color();
 }
 
 } // namespace util

@@ -12,4 +12,5 @@ endif()
 
 add_subdirectory(Concurrency)
 add_subdirectory(Logging)
+add_subdirectory(Math)
 add_subdirectory(Timing)

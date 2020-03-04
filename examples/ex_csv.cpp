@@ -53,12 +53,12 @@ int main() {
     // read back subset of header with offset
     array<string, 5> row;
     csv_read_row(filepath, row, 0, 2);
-    println(row);
+    print_var(row);
     // read back subset of data with offset as doubles
     array<array<double,5>,5> rows;
     csv_read_rows(filepath, rows, 1, 2);
     for (auto& r : rows) 
-        println(r);
+        print_var(r);
 
     //=========================================================================
     // Example 3: Logging a Rolling Window of Data
@@ -81,7 +81,7 @@ int main() {
         // set precision of floating poitn numbers
         csv.set_precision(2);
         // simulate a loop
-        println("Starting 10 second loop ...");
+        print("Starting 10 second loop ...");
         Timer timer(hertz(1000));
         Time  t;
         while (t < seconds(10)) {
@@ -95,8 +95,8 @@ int main() {
             t = timer.wait();
         }
         // print timer info to gauge HDD write performance
-        println("Miss Rate: ", timer.get_miss_rate());
-        println("Wait Ratio:", timer.get_wait_ratio());        
+        print("Miss Rate: {}", timer.get_miss_rate());
+        print("Wait Ratio: {}", timer.get_wait_ratio());        
     }
 
     return 0;

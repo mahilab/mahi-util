@@ -41,19 +41,16 @@ int main() {
             std::cin >> value;
             x.push_front(value);
         } else if (method == "pop_back") {
-            println("a: ");
-            println(x.pop_back());
+            print("a: {}", x.pop_back());
         } else if (method == "pop_front") {
-            println("a: ");
-            println(x.pop_front());
+            print("a: {}",x.pop_front());
         } else if (method == "[]") {
             std::cin >> idx;
-            println("a: ");
-            println(x[idx]);
+            print("a: {}",x[idx]);
         } else if (method == "[]=") {
             std::cin >> idx;
             std::cin >> value;
-            println("a: ");
+            print("a: ");
             x[idx] = value;
         } else if (method == "resize") {
             std::cin >> value;

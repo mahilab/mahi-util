@@ -42,28 +42,28 @@ int main(int argc, char* argv[]) {
     // do things with result:
 
     if (result.count("evan") > 0)
-        println("Hello, my name is Evan!");
+        print("Hello, my name is Evan!");
 
     if (result.count("c") > 0)
-        println("Hello, my name is Craig!");
+        print("Hello, my name is Craig!");
 
     if (result.count("help") > 0)
-        println(options.help());
+        print("{}",options.help());
 
     if (result.count("integer") > 0) {
         int i = result["integer"].as<int>();
-        println("You entered " + std::to_string(i));
+        print("You entered {}", i);
     }
 
     if (result.count("d") > 0) {
         double d = result["d"].as<double>();
-        println("You entered " + std::to_string(d));
+        print("You entered {}", d);
     } 
 
     if (result.count("v")) {
         auto v = result["v"].as<std::vector<int>>();
-        println(v.size());
-        println(v);
+        print_var(v.size());
+        print_var(v);
     }
 
     return 0;
