@@ -11,7 +11,7 @@ cmake_minimum_required(VERSION 3.13.0)
 option(MAHI_UTIL_EXAMPLES   "Turn ON to build example executable(s)" ON)
 option(MAHI_UTIL_COROUTINES "Turn ON to build experimental coroutine support" ON)
 option(MAHI_UTIL_DEFAULT_LOG     "Turn ON to enable a default log output to console/file" ON)
-option(MAHI_UTIL_LOG_CAPTURE_FILE "Turn ON to enable filename capture in logs" OFF)
+option(MAHI_UTIL_LOG_CAPTURE_FILE "Turn ON to enable filename capture in logs" ON)
 
 #===============================================================================
 # FRONT MATTER

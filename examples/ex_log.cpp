@@ -65,19 +65,22 @@ public:
 
 int main() {
 
+    print("Hey!");
+
     /// Built in logger demonstration (only available if MAHI_DEFAULT_LOG was defined at compile time)
     LOG(Debug) << "This is a Debug log";      // goes nowhere by default
-    LOG(Verbose) << "This is a Verbose log";  // goes to MEL.log only
-    LOG(Info) << "This is an Info log";       // goes to MEL.log and console
-    LOG(Warning) << "This is a Warning log";  // goes to MEL.log and console
-    LOG(Error) << "This is an Error log";     // goes to MEL.log and console
-    LOG(Fatal) << "This is a Fatal log";      // goes to MEL.log and console
+    LOG(Verbose) << "This is a Verbose log";  // goes to MAHI.log only
+    LOG(Info) << "This is an Info log";       // goes to MAHI.log and console
+    LOG(Warning) << "This is a Warning log";  // goes to MAHI.log and console
+    LOG(Error) << "This is an Error log";     // goes to MAHI.log and console
+    LOG(Fatal) << "This is a Fatal log";      // goes to MAHI.log and console
 
     /// You can change the max severiy of the default logger
-    MAHI_LOG->set_max_severity(Debug);
+    if (MAHI_LOG)
+        MAHI_LOG->set_max_severity(Debug);
 
-    LOG(Debug) << "This is another Debug log";      // goes to MEL.log and console
-    LOG(Verbose) << "This is another Verbose log";  // goes to MEL.log and console
+    LOG(Debug) << "This is another Debug log";      // goes to MAHI.log and console
+    LOG(Verbose) << "This is another Verbose log";  // goes to MAHI.log and console
 
     //==========================================================================
 
