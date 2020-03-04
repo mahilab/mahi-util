@@ -80,6 +80,10 @@ Frequency operator ""_MHz(long double ammount) {
 // OPERATOR OVERLOADS
 //==============================================================================
 
+bool operator==(Frequency left, Frequency right) {
+    return left.as_hertz() == right.as_hertz();
+}
+
 std::ostream& operator << (std::ostream& os, const Frequency& t) {
     os << t.as_hertz() << " Hz";
     return os;

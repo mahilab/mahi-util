@@ -99,6 +99,9 @@ Frequency operator ""_MHz(long double ammount);
 // OPERATOR OVERLOADS
 //==============================================================================
 
+/// Overload of == operator to compare if two frequency values are equal
+bool operator==(Frequency left, Frequency right);
+
 std::ostream& operator << (std::ostream& os, const Frequency& t);
 
 } // namespace util
