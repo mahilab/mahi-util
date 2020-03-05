@@ -126,12 +126,12 @@ template <typename T>
 inline T round_nearest(T value, T interval);
 
 /// Returns minimum value in a vector
-template <typename T, typename TArray>
-T min_element(const TArray& values);
+template <typename TArray>
+auto min_element(const TArray& values);
 
 /// Returns maximum value in a vector
-template <typename T, typename TArray>
-T max_element(const TArray& values);
+template <typename TArray>
+auto max_element(const TArray& values);
 
 /// Computes a proportional-derivative control effort given gains, referenc state, and current state
 template <typename T>

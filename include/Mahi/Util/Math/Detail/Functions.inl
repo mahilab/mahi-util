@@ -118,13 +118,13 @@ inline T round_nearest(T value, T interval) {
     return value;
 }
 
-template <typename T, typename TArray>
-T min_element(const TArray& values) {
+template <typename TArray>
+auto min_element(const TArray& values) {
     return *std::min_element(values.begin(), values.end());
 }
 
-template <typename T, typename TArray>
-T max_element(const TArray& values) {
+template <typename TArray>
+auto max_element(const TArray& values) {
     return *std::max_element(values.begin(), values.end());
 }
 
