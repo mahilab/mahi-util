@@ -13,7 +13,7 @@ static void wait_busy(const Time& duration) {
 }
 
 static void wait_sleep(const Time& duration) {
-    std::this_thread::sleep_for(std::chrono::microseconds(duration.as_microseconds()));
+    sleep(duration);
 }
 
 Timer::Timer(Frequency frequency, WaitMode mode, bool emit_warnings) :
