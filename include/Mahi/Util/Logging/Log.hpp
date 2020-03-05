@@ -141,7 +141,7 @@ inline Logger<instance>& init_logger(Severity max_severity,
 /// TxtFormatter and default severity Verbose, and (1) a ColorConsoleWriter with
 /// TxtFormatter and default severity Info. Can be disabled by undefining
 /// MAHI_DEFAULT_LOG or enabling DISABLE_LOG option in CMakeLists.txt
-extern Logger<DEFAULT_LOGGER>* MAHI_LOG;
+extern Logger<DEFAULT_LOGGER>* MahiLogger;
 
 } // namespace util
 } // namespace mahi
@@ -152,15 +152,15 @@ extern Logger<DEFAULT_LOGGER>* MAHI_LOG;
 
 /// Log severity level checker for specific logger instance
 #define IF_LOG_(instance, severity)                          \
-    if (!get_logger<instance>() ||                           \
-        !get_logger<instance>()->check_severity(severity)) { \
+    if (!mahi::util::get_logger<instance>() ||                           \
+        !mahi::util::get_logger<instance>()->check_severity(severity)) { \
         ;                                                    \
     } else
 
 /// Main logging macro for specific logger instance
 #define LOG_(instance, severity) \
     IF_LOG_(instance, severity)  \
-    (*get_logger<instance>()) += LogRecord(severity, LOG_GET_FUNC(), __LINE__, LOG_GET_FILE())
+    (*mahi::util::get_logger<instance>()) += mahi::util::LogRecord(severity, LOG_GET_FUNC(), __LINE__, LOG_GET_FILE())
 
 /// Conditional logging macro for specific logger instance
 #define LOG_IF_(instance, severity, condition) \
@@ -171,14 +171,14 @@ extern Logger<DEFAULT_LOGGER>* MAHI_LOG;
 
 /// Log severity level checker for default MAHI logger
 #define IF_LOG(severity)                                        \
-    if (!MAHI_LOG || !MAHI_LOG->check_severity(severity)) { \
+    if (!mahi::util::MahiLogger || !mahi::util::MahiLogger->check_severity(severity)) { \
         ;                                                       \
     } else
 
 /// Main logging macro for default MAHI logger
 #define LOG(severity) \
     IF_LOG(severity)  \
-        *MAHI_LOG += LogRecord(severity, LOG_GET_FUNC(), __LINE__, LOG_GET_FILE())
+        *mahi::util::MahiLogger += mahi::util::LogRecord(severity, LOG_GET_FUNC(), __LINE__, LOG_GET_FILE())
 
 /// Conditional logging macro for default MAHI logger
 #define LOG_IF(severity, condition) \

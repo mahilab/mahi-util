@@ -74,8 +74,8 @@ int main() {
     LOG(Fatal) << "This is a Fatal log";      // goes to MAHI.log and console
 
     /// You can change the max severiy of the default logger
-    if (MAHI_LOG)
-        MAHI_LOG->set_max_severity(Debug);
+    if (MahiLogger)
+        MahiLogger->set_max_severity(Debug);
 
     LOG(Debug) << "This is another Debug log";      // goes to MAHI.log and console
     LOG(Verbose) << "This is another Verbose log";  // goes to MAHI.log and console
