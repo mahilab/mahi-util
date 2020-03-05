@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Mahi/Util/Console.hpp>
+#include <Mahi/Util/Device.hpp>
 #include <Mahi/Util/Print.hpp>
 #include <Mahi/Util/Event.hpp>
 #include <Mahi/Util/NonCopyable.hpp>
