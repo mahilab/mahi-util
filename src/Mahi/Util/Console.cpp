@@ -405,7 +405,7 @@ int get_key_nb() {
 }
 
 void prompt(const std::string& message) {
-    fmt::print("{}\n",message);
+    fmt::print("{}",message);
     Lock lock(g_console_mutex);
     getchar();
 }
