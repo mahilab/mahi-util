@@ -17,11 +17,13 @@
 
 #pragma once
 
+#include <Mahi/Util/Math/Constants.hpp>
 #include <cmath>
 #include <complex>
 #include <vector>
 #include <memory>
 #include <cassert>
+#include <numeric>
 
 namespace mahi {
 namespace util {

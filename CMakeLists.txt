@@ -115,14 +115,12 @@ endif()
 #===============================================================================
 
 if(WIN32)
-
 target_compile_definitions(util
     PUBLIC
         -D_CRT_SECURE_NO_WARNINGS          # remove secure warnings (e.g sprinft_s)
         -DNOMINMAX                         # remove min/max macros
         -D_WINSOCK_DEPRECATED_NO_WARNINGS  # remove winsock deprecated warnings
 ) 
-
 endif(WIN32)
 
 #===============================================================================
