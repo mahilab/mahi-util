@@ -6,11 +6,13 @@ namespace util {
 
 Device::Device() :
     enabled_(false),
+    open_(false),
     name_("UNNAMED_DEVICE")
 { }
 
 Device::Device(const std::string& name) :
     enabled_(false),
+    open_(false),
     name_(name)
 { }
 
