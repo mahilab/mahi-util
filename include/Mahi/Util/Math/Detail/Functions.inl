@@ -118,16 +118,6 @@ inline T round_nearest(T value, T interval) {
     return value;
 }
 
-template <typename TArray>
-auto min_element(const TArray& values) {
-    return *std::min_element(values.begin(), values.end());
-}
-
-template <typename TArray>
-auto max_element(const TArray& values) {
-    return *std::max_element(values.begin(), values.end());
-}
-
 template <typename T>
 T pd_controller(T kp, T kd, T x_ref, T x, T xd_ref, T xd) {
     return kp * (x_ref - x) + kd * (xd_ref - xd);
@@ -153,57 +143,67 @@ inline void linspace(R a, R b, Container& array) {
     if (array.size() == 0)
         return;
     auto N = array.size();
-    Container::value_type aa = static_cast<Container::value_type>(a);
-    Container::value_type bb = static_cast<Container::value_type>(b);
-    Container::value_type delta = (bb - aa) / static_cast<Container::value_type>(N - 1);
+    typename Container::value_type aa = static_cast<typename Container::value_type>(a);
+    typename Container::value_type bb = static_cast<typename Container::value_type>(b);
+    typename Container::value_type delta = (bb - aa) / static_cast<typename Container::value_type>(N - 1);
     array[0] = aa;
     for (std::size_t i = 1; i < N - 1; i++)
         array[i] = array[i - 1] + delta;
     array[N - 1] = bb;
 }
 
+template <typename Container>
+inline typename Container::value_type min_element(const Container& values) {
+    return *std::min_element(values.begin(), values.end());
+}
+
+template <typename Container>
+inline typename Container::value_type max_element(const Container& values) {
+    return *std::max_element(values.begin(), values.end());
+}
+
 template <class Container>
-inline auto sum(const Container& data) {
-    Container::value_type s = 0;
+inline typename Container::value_type sum(const Container& data) {
+    typename Container::value_type s = 0;
     for (std::size_t i = 0; i < data.size(); ++i)
         s += data[i];
     return s;
 }
 
 template <class Container>
-inline auto mean(const Container & data) {
-    Container::value_type den = static_cast<Container::value_type>(1) / static_cast<Container::value_type>(data.size());
-    Container::value_type mean = 0;
+inline typename Container::value_type mean(const Container & data) {
+    typename Container::value_type den = static_cast<typename Container::value_type>(1) / static_cast<typename Container::value_type>(data.size());
+    typename Container::value_type mean = 0;
     for (std::size_t i = 0; i < data.size(); ++i)
         mean += data[i] * den;
     return mean;
 }
 
 template <class Container>
-inline auto stddev_p(const Container& data) {
+inline typename Container::value_type stddev_p(const Container& data) {
     if (data.size() > 0) {
-        Container::value_type u = mean(data);
+        typename Container::value_type u = mean(data);
         auto diff = data;
-        std::transform(data.begin(), data.end(), diff.begin(), [u](Container::value_type x) { return x - u; });
-        Container::value_type sq_sum = std::inner_product(diff.begin(), diff.end(), diff.begin(), Container::value_type(0));
+        std::transform(data.begin(), data.end(), diff.begin(), [u](typename Container::value_type x) { return x - u; });
+        typename Container::value_type sq_sum = std::inner_product(diff.begin(), diff.end(), diff.begin(), typename Container::value_type(0));
         return std::sqrt(sq_sum / data.size());
     }
     else {
-        return Container::value_type(0);
+        return typename Container::value_type(0);
     }
 }
 
 template <class Container>
-inline auto stddev_s(const Container& data) {
+inline typename Container::value_type stddev_s(const Container& data) {
     if (data.size() > 1) {
-        Container::value_type u = mean(data);
+        typename Container::value_type u = mean(data);
         auto diff = data;
-        std::transform(data.begin(), data.end(), diff.begin(), [u](Container::value_type x) { return x - u; });
-        Container::value_type sq_sum = std::inner_product(diff.begin(), diff.end(), diff.begin(), Container::value_type(0));
+        std::transform(data.begin(), data.end(), diff.begin(), [u](typename Container::value_type x) { return x - u; });
+        typename Container::value_type sq_sum = std::inner_product(diff.begin(), diff.end(), diff.begin(), typename Container::value_type(0));
         return std::sqrt(sq_sum / (data.size() - 1));
     }
     else {
-        return Container::value_type(0);
+        return typename Container::value_type(0);
     }
 }
 

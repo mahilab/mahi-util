@@ -29,14 +29,15 @@ int main(int argc, char const *argv[])
     if (t1 > t2)    
         fmt::print("{}\n",t3);
 
-    double t1_s  = t1.as_seconds();
-    int32  t2_ms = t2.as_milliseconds();
+    double t3_s  = t3.as_seconds();
+    int32  t3_ms = t3.as_milliseconds();
     int64  t3_us = t3.as_microseconds();
+    print("{} s = {} ms = {} us", t3_s, t3_ms, t3_us);    
 
     // Frequency
     Frequency f1 = 1000_Hz;
     Frequency f2 = t2.to_frequency();
-    fmt::print("{}, {}\n",f1,f2); 
+    print("{}, {}",f1,f2); 
 
     // Clock
     Clock clock;
@@ -46,17 +47,17 @@ int main(int argc, char const *argv[])
     Time time2 = clock.restart();
     sleep(1_s);
     Time time3 = clock.get_elapsed_time();
-    fmt::print("{}, {}, {}\n",time1, time2, time3);
+    print("{}, {}, {}",time1, time2, time3);
 
     // Timer
     Timer timer1(1_s);
     time1 = timer1.wait();
     time2 = timer1.wait();
     time3 = timer1.wait();
-    fmt::print("{}, {}, {}\n",time1, time2, time3);
+    print("{}, {}, {}",time1, time2, time3);
 
     Timer hybrid_timer(milliseconds(10), Timer::WaitMode::Hybrid);
-    fmt::print("{}\n",hybrid_timer.wait());
+    print("{}",hybrid_timer.wait());
 
     // Time loops
     Time t = Time::Zero;

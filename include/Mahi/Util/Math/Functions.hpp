@@ -24,6 +24,7 @@
 #include <memory>
 #include <cassert>
 #include <numeric>
+#include <algorithm>
 
 namespace mahi {
 namespace util {
@@ -127,14 +128,6 @@ inline T round_down_nearest(T value, T interval);
 template <typename T>
 inline T round_nearest(T value, T interval);
 
-/// Returns minimum value in a vector
-template <typename TArray>
-auto min_element(const TArray& values);
-
-/// Returns maximum value in a vector
-template <typename TArray>
-auto max_element(const TArray& values);
-
 /// Computes a proportional-derivative control effort given gains, referenc state, and current state
 template <typename T>
 inline T pd_controller(T kp,T kd,T x_ref,T x,T xd_ref,T xd);
@@ -151,21 +144,29 @@ inline T sigmoid(T a);
 template <class Container, typename R>
 inline void linspace(R a, R b, Container& array);
 
+/// Returns minimum value in a vector
+template <typename Container>
+inline typename Container::value_type min_element(const Container& values);
+
+/// Returns maximum value in a vector
+template <typename Container>
+inline typename Container::value_type max_element(const Container& values);
+
 /// Computes the sum of a vector of floats
 template <class Container>
-inline auto sum(const Container& data);
+inline typename Container::value_type sum(const Container& data);
 
 /// Computes the mean of a vector of floats
 template <class Container>
-inline auto mean(const Container& c);
+inline typename Container::value_type mean(const Container& c);
 
 /// Returns the population standard deviation of a vector of data
 template <class Container>
-inline auto stddev_p(const Container& data);
+inline typename Container::value_type stddev_p(const Container& data);
 
 /// Returns the sample standard deviation of a vector of data
 template <class Container>
-inline auto stddev_s(const Container& data);
+inline typename Container::value_type stddev_s(const Container& data);
 
 /// Computes a linear regression slope and intercept {m, b} for y = m*x + b
 template <class ContainerX, class ContainerY, typename T>

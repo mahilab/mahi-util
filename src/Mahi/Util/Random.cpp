@@ -63,7 +63,7 @@ unsigned int random_range(unsigned int min, unsigned int max) {
 
 double random_range(double min, double max) {
     assert(min <= max);
-    std::uniform_real_distribution<float> distribution(min, max);
+    std::uniform_real_distribution<double> distribution(min, max);
     return distribution(g_rnEngine);
 }
 
