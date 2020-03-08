@@ -20,12 +20,13 @@
 #pragma once
 
 #include <string>
+#include <Mahi/Util/NonCopyable.hpp>
 
 namespace mahi {
 namespace util {
 
 /// Abstract base class from which all physical devices derive.
-class Device {
+class Device : public NonCopyable {
 public:
 
     /// Default constructor.
