@@ -16,6 +16,8 @@
 //            Craig McDonald (craig.g.mcdonald@gmail.com)
 
 #pragma once
+#include <limits>
+#include <cmath>
 
 namespace mahi {
 namespace util {
@@ -24,24 +26,24 @@ namespace util {
 // GENERIC
 //==============================================================================
 
-extern const double PI;     ///< pi
-extern const double HALFPI; ///< pi/2
-extern const double TWOPI;  ///< 2*pi
-extern const double E;      ///< e
-extern const double SQRT2;  /// sqrt(2)
-extern const double SQRT3;  /// sqrt(3)
-extern const double EPS;    ///< smallest double such that 1.0 + EPS != 1.0
-extern const double INF;    ///< positive infinity (negate for negative infinity)
-extern const double NaN;    ///< not-a-number
+constexpr double PI     = 3.141592653589793238462643383279502884;
+constexpr double HALFPI = PI * 0.5;
+constexpr double TWOPI  = 2 * PI;
+constexpr double E      = 2.718281828459045235360287471352662497;
+constexpr double SQRT2  = 1.414213562373095048801688724209698078;
+constexpr double SQRT3  = 1.7320508075688772935274463415058723669;
+constexpr double EPS    = std::numeric_limits<double>::epsilon();
+constexpr double INF    = std::numeric_limits<double>::infinity();
+constexpr double NaN    = std::numeric_limits<double>::quiet_NaN();
 
 //==============================================================================
 // CONVERSIONS
 //==============================================================================
 
-extern const double DEG2RAD;     ///< multiply degrees by this value to convert to radians
-extern const double RAD2DEG;     ///< multiply radians by this value to convert to degrees
-extern const double INCH2METER;  ///< multiply inches by this value to convert to meters
-extern const double METER2INCH;  ///< multiply meters by this value to convert to inches
+constexpr double DEG2RAD    = PI / 180;
+constexpr double RAD2DEG    = 180 / PI;
+constexpr double INCH2METER = 0.0254;
+constexpr double METER2INCH = 1.0 / INCH2METER;
 
 } // namespace util
 } // namespace mahi
