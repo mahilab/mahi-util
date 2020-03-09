@@ -57,12 +57,12 @@ public:
     bool is_enabled() const;
 
     /// Gets the Device's string name
-    const std::string& get_name() const;
+    const std::string& name() const;
+
+protected:
 
     /// Sets the Device's string name
     void set_name(const std::string& name);
-
-protected:
 
     /// Implement this function with code that should be called when enabled
     /// return TRUE if successful, FALSE otherwise
@@ -79,7 +79,6 @@ protected:
     /// Implement this function to close communication with your Device.
     /// return TRUE if close successful, FALSE otherwise
     virtual bool on_close();
-
 
 private:
     bool enabled_;      ///< The Device enabled status
