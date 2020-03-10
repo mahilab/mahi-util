@@ -17,6 +17,7 @@
 #pragma once
 
 #include <Mahi/Util/Logging/Detail/StreamMeta.hpp>
+#include <Mahi/Util/StlStreams.hpp>
 #include <Mahi/Util/Console.hpp>
 #include <Mahi/Util/System.hpp>
 #include <Mahi/Util/Timing/Timestamp.hpp>
