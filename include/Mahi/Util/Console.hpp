@@ -17,7 +17,6 @@
 
 #pragma once
 #include <Mahi/Util/Timing/Time.hpp>
-#include <Mahi/Util/StlStreams.hpp>
 #include <Mahi/Util/Types.hpp>
 #include <atomic>
 #include <sstream>

@@ -233,7 +233,7 @@ bool enable_realtime() {
             LOG(Error) << "Failed to elevate process priority. Code: " << static_cast<int>(dwError);
             return false;
         }
-        DWORD dwPriClass;
+        // DWORD dwPriClass;
         if (!SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_TIME_CRITICAL)){
             dwError = GetLastError();
             LOG(Error) << "ERROR: Failed to elevate thread priority. Code: " << static_cast<int>(dwError);
@@ -343,7 +343,7 @@ struct VersionGetter
         const auto cbInfo =
             ::GetFileVersionInfoSizeExW(FILE_VER_GET_NEUTRAL, system, &dummy);
         std::vector<char> buffer(cbInfo);
-        ::GetFileVersionInfoExW(FILE_VER_GET_NEUTRAL, system, dummy, buffer.size(), &buffer[0]);
+        ::GetFileVersionInfoExW(FILE_VER_GET_NEUTRAL, system, dummy, (DWORD)buffer.size(), &buffer[0]);
         void *p = nullptr;
         UINT size = 0;
         ::VerQueryValueW(buffer.data(), L"\\", &p, &size);
