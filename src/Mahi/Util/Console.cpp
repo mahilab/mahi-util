@@ -404,12 +404,6 @@ int get_key_nb() {
         return 0;
 }
 
-void prompt(const std::string& message) {
-    fmt::print("{}",message);
-    Lock lock(g_console_mutex);
-    getchar();
-}
-
 //==============================================================================
 // MISC
 //==============================================================================

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <Mahi/Util/Console.hpp>
 #include <Mahi/Util/StlStreams.hpp>
 #include <fmt/format.h>
 #include <fmt/color.h>
@@ -39,6 +40,14 @@ void print_var(Arg&& arg, Args&&... args) {
     ss << "\n";
     fmt::print("{}",ss.str());
 }
+
+/// Prompts the user with a message and waits for Enter to be pressed (thread-safe)
+template <typename... Args>
+void prompt(const char* format, const Args& ... args) {
+    fmt::vprint(format, fmt::make_format_args(args...));
+    getchar();
+}
+
 
 } // namespace util
 } // namesapce mahi

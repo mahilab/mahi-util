@@ -107,9 +107,6 @@ int get_key();
 /// Returns 0 if no key was pressed.
 int get_key_nb();
 
-/// Prompts the user with a message and waits for Enter to be pressed (thread-safe)
-void prompt(const std::string& message);
-
 //==============================================================================
 // MISC
 //==============================================================================
