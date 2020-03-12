@@ -58,16 +58,16 @@ bool Device::is_enabled() const {
 
 bool Device::open() {
     if (open_) {
-        LOG(Warning) << "Device " << name() << " already open";
+        LOG(Warning) << name() << " already open";
         return true;
     }
     if (on_open()) {
-        LOG(Info) << "Opened Device " << name();
+        LOG(Info) << "Opened " << name();
         open_ = true;
         return true;
     }
     else {
-        LOG(Error) << "Failed to open Device " << name();
+        LOG(Error) << "Failed to open " << name();
         open_ = false;
         return false;
     }
@@ -75,16 +75,16 @@ bool Device::open() {
 
 bool Device::close() {
     if (!open_) {
-        LOG(Warning) << "Device " << name() << " already closed";
+        LOG(Warning) << name() << " already closed";
         return true;
     }
     if (on_close()) {
-        LOG(Info) << "Closed Device " << name();
+        LOG(Info) << "Closed " << name();
         open_ = false;
         return true;
     }
     else {
-        LOG(Error) << "Failed to close Device " << name();
+        LOG(Error) << "Failed to close " << name();
         open_ = true;
         return false;
     }
