@@ -55,7 +55,7 @@ bool File::open(const std::string& filepath, WriteMode w_mode, OpenMode o_mode) 
     auto open_flags = o_mode == OpenMode::OpenOrCreate ? _O_CREAT | _O_RDWR : _O_RDWR;
     if (w_mode == WriteMode::Truncate)
         open_flags |= _O_TRUNC;
-    auto result = ::_sopen_s(&file_handle_, full.c_str(), open_flags | _O_BINARY, _SH_DENYWR, _S_IREAD | _S_IWRITE);
+    ::_sopen_s(&file_handle_, full.c_str(), open_flags | _O_BINARY, _SH_DENYWR, _S_IREAD | _S_IWRITE);
 #else
     auto open_flags = o_mode == OpenMode::OpenOrCreate ? O_CREAT | O_RDWR : O_RDWR;
     if (w_mode == WriteMode::Truncate)
