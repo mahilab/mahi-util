@@ -113,5 +113,8 @@ int main() {
     LOG_(MyLogger, Error) << "This is an custom Error log";
     LOG_(MyLogger, Fatal) << "This is a custom Fatal log";
 
+    std::vector<unsigned int> u = {1,2,3,4};
+    LOG(Error) << u;
+
     return 0;
 }
