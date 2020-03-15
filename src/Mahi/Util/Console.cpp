@@ -191,73 +191,73 @@ void enable_virtual_console() {
 
 #else
 
-void set_text_color(Color foreground, Color background) {
+void set_text_color(ConsoleColor foreground, ConsoleColor background) {
     Lock lock(g_console_mutex);
     // background
-    if (background == Color::None)
+    if (background == ConsoleColor::None)
         std::cout << "\x1B[0m";
-    else if (background == Color::Black)
+    else if (background == ConsoleColor::Black)
         std::cout << "\x1B[40m";
-    else if (background == Color::Gray)
+    else if (background == ConsoleColor::Gray)
         std::cout << "\x1B[100m";
-    else if (background == Color::White)
+    else if (background == ConsoleColor::White)
         std::cout << "\x1B[107m";
-    else if (background == Color::Red)
+    else if (background == ConsoleColor::Red)
         std::cout << "\x1B[101m";
-    else if (background == Color::DarkRed)
+    else if (background == ConsoleColor::DarkRed)
         std::cout << "\x1B[41m";
-    else if (background == Color::Green)
+    else if (background == ConsoleColor::Green)
         std::cout << "\x1B[102m";
-    else if (background == Color::DarkGreen)
+    else if (background == ConsoleColor::DarkGreen)
         std::cout << "\x1B[42m";
-    else if (background == Color::Blue)
+    else if (background == ConsoleColor::Blue)
         std::cout << "\x1B[104m";
-    else if (background == Color::DarkBlue)
+    else if (background == ConsoleColor::DarkBlue)
         std::cout << "\x1B[44m";
-    else if (background == Color::Cyan)
+    else if (background == ConsoleColor::Cyan)
         std::cout << "\x1B[106m";
-    else if (background == Color::Aqua)
+    else if (background == ConsoleColor::Aqua)
         std::cout << "\x1B[46m";
-    else if (background == Color::Magenta)
+    else if (background == ConsoleColor::Magenta)
         std::cout << "\x1B[105m";
-    else if (background == Color::Purple)
+    else if (background == ConsoleColor::Purple)
         std::cout << "\x1B[45m";
-    else if (background == Color::Yellow)
+    else if (background == ConsoleColor::Yellow)
         std::cout << "\x1B[103m";
-    else if (background == Color::Gold)
+    else if (background == ConsoleColor::Gold)
         std::cout << "\x1B[43m";
     // set foreground
-    if (foreground == Color::None)
+    if (foreground == ConsoleColor::None)
         std::cout << "\x1B[97m";
-    else if (foreground == Color::Black)
+    else if (foreground == ConsoleColor::Black)
         std::cout << "\x1B[30m";
-    else if (foreground == Color::Gray)
+    else if (foreground == ConsoleColor::Gray)
         std::cout << "\x1B[90m";
-    else if (foreground == Color::White)
+    else if (foreground == ConsoleColor::White)
         std::cout << "\x1B[97m";
-    else if (foreground == Color::Red)
+    else if (foreground == ConsoleColor::Red)
         std::cout << "\x1B[91m";
-    else if (foreground == Color::DarkRed)
+    else if (foreground == ConsoleColor::DarkRed)
         std::cout << "\x1B[31m";
-    else if (foreground == Color::Green)
+    else if (foreground == ConsoleColor::Green)
         std::cout << "\x1B[92m";
-    else if (foreground == Color::DarkGreen)
+    else if (foreground == ConsoleColor::DarkGreen)
         std::cout << "\x1B[32m";
-    else if (foreground == Color::Blue)
+    else if (foreground == ConsoleColor::Blue)
         std::cout << "\x1B[94m";
-    else if (foreground == Color::DarkBlue)
+    else if (foreground == ConsoleColor::DarkBlue)
         std::cout << "\x1B[34m";
-    else if (foreground == Color::Cyan)
+    else if (foreground == ConsoleColor::Cyan)
         std::cout << "\x1B[96m";
-    else if (foreground == Color::Aqua)
+    else if (foreground == ConsoleColor::Aqua)
         std::cout << "\x1B[36m";
-    else if (foreground == Color::Magenta)
+    else if (foreground == ConsoleColor::Magenta)
         std::cout << "\x1B[95m";
-    else if (foreground == Color::Purple)
+    else if (foreground == ConsoleColor::Purple)
         std::cout << "\x1B[35m";
-    else if (foreground == Color::Yellow)
+    else if (foreground == ConsoleColor::Yellow)
         std::cout << "\x1B[93m";
-    else if (foreground == Color::Gold)
+    else if (foreground == ConsoleColor::Gold)
         std::cout << "\x1B[33m";
 }
 

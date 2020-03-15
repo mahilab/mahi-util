@@ -69,11 +69,15 @@ target_compile_definitions(util PUBLIC MAHI_UTIL) # for compatibility checks
 
 # set necessary coroutine options
 if(MAHI_UTIL_COROUTINES)
-    target_compile_definitions(util PUBLIC MAHI_COROUTINES)
     if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
         target_compile_options(util PUBLIC "/await")
+        target_compile_definitions(util PUBLIC MAHI_COROUTINES)
     elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         target_compile_options(util PUBLIC "-fcoroutines-ts")
+        target_compile_definitions(util PUBLIC MAHI_COROUTINES)
+    else()
+        message("Coroutines not supported by this compiler!")
+        set(MAHI_UTIL_COROUTINES OFF)
     endif()
 endif()
 
@@ -122,6 +126,21 @@ target_compile_definitions(util
         -D_WINSOCK_DEPRECATED_NO_WARNINGS  # remove winsock deprecated warnings
 ) 
 endif(WIN32)
+
+#===============================================================================
+# NI LRT ONLY
+#===============================================================================
+if (NI_LRT)
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
+    target_link_libraries(util
+        PRIVATE
+            dl # Dynamic Linking Library
+            rt # Realtime Extensions library
+    )
+    if (CMAKE_SYSTEM_PROCESSOR MATCHES ARM)
+        target_compile_definitions(util PRIVATE MyRio_1900) # needed by NI src
+    endif()
+endif()
 
 #===============================================================================
 # EXAMPLE EXECUTABLES
