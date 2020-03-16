@@ -5,16 +5,6 @@
 
 using namespace mahi::util;
 
-template <template <typename, typename> class Container,  typename T, typename A=std::allocator<T> >
-T mean2(const Container<T, A> & c)
-{
-  return T();
-}
-
-auto get() {
-    return 3.0f;
-}
-
 int main(int argc, char const *argv[])
 {
     std::vector<double> x(11);
@@ -34,8 +24,7 @@ int main(int argc, char const *argv[])
     print("Std. Dev. S. {}",sds);
     print("Min {}",mn);
     print("Max {}",mx);
-
-
+  
     double m, b;
     std::array<double,11> y; // can use arrays too
     linspace(20,100,y);
