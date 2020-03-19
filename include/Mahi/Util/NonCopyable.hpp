@@ -26,6 +26,7 @@ protected:
     NonCopyable() {}
     /// Default destructor
     ~NonCopyable() {}
+
 private:
     /// Disabled copy constructor
     NonCopyable(const NonCopyable&);
@@ -33,5 +34,5 @@ private:
     NonCopyable& operator=(const NonCopyable&);
 };
 
-} // namespace util
-} // namespace mahi
+}  // namespace util
+}  // namespace mahi

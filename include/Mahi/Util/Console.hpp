@@ -19,9 +19,9 @@
 #include <Mahi/Util/Timing/Time.hpp>
 #include <Mahi/Util/Types.hpp>
 #include <atomic>
+#include <cxxopts.hpp>
 #include <sstream>
 #include <utility>
-#include <cxxopts.hpp>
 
 namespace mahi {
 namespace util {
@@ -83,7 +83,8 @@ void set_text_color(ConsoleColor foreground, ConsoleColor background = ConsoleCo
 /// Resets the foreground and background text color to the default style (thread-safe)
 void reset_text_color();
 
-/// Enables virtual console (needed in Windows PowerShell/CMD if using fmt::color with fmt::print aka mahi::util::print)
+/// Enables virtual console (needed in Windows PowerShell/CMD if using fmt::color with fmt::print
+/// aka mahi::util::print)
 void enable_virtual_console();
 
 //==============================================================================
@@ -127,30 +128,30 @@ enum {
     KEY_BACKSPACE = 8,
     KEY_SPACE     = 32,
 
-    KEY_INSERT  = 2,
-    KEY_HOME    = 3,
-    KEY_PGUP    = 4,
-    KEY_DELETE  = 5,
-    KEY_END     = 6,
-    KEY_PGDOWN  = 7,
+    KEY_INSERT = 2,
+    KEY_HOME   = 3,
+    KEY_PGUP   = 4,
+    KEY_DELETE = 5,
+    KEY_END    = 6,
+    KEY_PGDOWN = 7,
 
-    KEY_UP      = 14,
-    KEY_DOWN    = 15,
-    KEY_LEFT    = 16,
-    KEY_RIGHT   = 17,
+    KEY_UP    = 14,
+    KEY_DOWN  = 15,
+    KEY_LEFT  = 16,
+    KEY_RIGHT = 17,
 
-    KEY_F1      = 18,
-    KEY_F2      = 19,
-    KEY_F3      = 20,
-    KEY_F4      = 21,
-    KEY_F5      = 22,
-    KEY_F6      = 23,
-    KEY_F7      = 24,
-    KEY_F8      = 25,
-    KEY_F9      = 26,
-    KEY_F10     = 27,
-    KEY_F11     = 28,
-    KEY_F12     = 29,
+    KEY_F1  = 18,
+    KEY_F2  = 19,
+    KEY_F3  = 20,
+    KEY_F4  = 21,
+    KEY_F5  = 22,
+    KEY_F6  = 23,
+    KEY_F7  = 24,
+    KEY_F8  = 25,
+    KEY_F9  = 26,
+    KEY_F10 = 27,
+    KEY_F11 = 28,
+    KEY_F12 = 29,
 
     KEY_NUMDEL  = 30,
     KEY_NUMPAD0 = 31,
@@ -166,4 +167,4 @@ enum {
 };
 
 }  // namespace util
-} // namsapce mahi
+}  // namespace mahi

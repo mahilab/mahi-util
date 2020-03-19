@@ -20,17 +20,17 @@
 namespace mahi {
 namespace util {
 
-typedef               char  int8;   ///<                       -127 to +127
-typedef unsigned      char uint8;   ///<                          0 to +255
-typedef              short  int16;  ///<                    -32,767 to +32,767
-typedef unsigned     short uint16;  ///<                          0 to +65,535
-typedef                int  int32;  ///<             -2,147,483,648 to +2,147,483,647
-typedef unsigned       int uint32;  ///<                          0 to +4,294,967,295
+typedef char           int8;    ///<                       -127 to +127
+typedef unsigned char  uint8;   ///<                          0 to +255
+typedef short          int16;   ///<                    -32,767 to +32,767
+typedef unsigned short uint16;  ///<                          0 to +65,535
+typedef int            int32;   ///<             -2,147,483,648 to +2,147,483,647
+typedef unsigned int   uint32;  ///<                          0 to +4,294,967,295
 #if defined(_MSC_VER)
-typedef signed     __int64  int64;  ///< -9,223,372,036,854,775,808 to +9,223,372,036,854,775,807
-typedef unsigned   __int64 uint64;  ///<                          0 to 18,446,744,073,709,551,615
+typedef signed __int64   int64;   ///< -9,223,372,036,854,775,808 to +9,223,372,036,854,775,807
+typedef unsigned __int64 uint64;  ///<                          0 to 18,446,744,073,709,551,615
 #else
-typedef signed   long long int64;   ///< -9,223,372,036,854,775,808 to +9,223,372,036,854,775,807
+typedef signed long long   int64;   ///< -9,223,372,036,854,775,808 to +9,223,372,036,854,775,807
 typedef unsigned long long uint64;  ///<                          0 to 18,446,744,073,709,551,615
 #endif
 
@@ -42,10 +42,9 @@ enum OpenMode {
 
 /// Represents mode in which a file is written when it is opened
 enum WriteMode {
-    Truncate = 0, ///< file will be truncated if it exists
-    Append = 1    ///< file will be not be truncated on open
+    Truncate = 0,  ///< file will be truncated if it exists
+    Append   = 1   ///< file will be not be truncated on open
 };
 
-} // namespace util
-} // namespace mahi
-
+}  // namespace util
+}  // namespace mahi

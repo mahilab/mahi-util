@@ -80,7 +80,7 @@ const std::string& os_name();
 const std::string& os_version();
 
 //==============================================================================
-// PEROFRMANCE MONITORING FUNCTIONS
+// PERFORMANCE MONITORING FUNCTIONS
 //==============================================================================
 
 /// Gets the CPU core usage as a percent used by all processes

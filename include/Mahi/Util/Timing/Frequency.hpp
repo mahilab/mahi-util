@@ -24,10 +24,6 @@ namespace util {
 
 class Time;
 
-//==============================================================================
-// CLASS DECLARATION
-//==============================================================================
-
 /// Represents a frequency value
 class Frequency {
 public:

@@ -21,10 +21,6 @@
 namespace mahi {
 namespace util {
 
-//==============================================================================
-// CLASS DECLARATIOIN
-//==============================================================================
-
 template <class T>
 class Singleton : NonCopyable {
 public:
