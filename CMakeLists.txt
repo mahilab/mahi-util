@@ -10,7 +10,7 @@ cmake_minimum_required(VERSION 3.13.0)
 
 if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     option(MAHI_UTIL_EXAMPLES         "Turn ON to build example executable(s)"             ON)
-else
+else()
     option(MAHI_UTIL_EXAMPLES         "Turn ON to build example executable(s)"            OFF)
 endif()
 
