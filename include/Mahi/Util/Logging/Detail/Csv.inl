@@ -1,7 +1,7 @@
 namespace mahi {
 namespace util {
 
- template <typename Arg, typename... Args>
+template <typename Arg, typename... Args>
 void Csv::write_row(Arg&& arg, Args&&... args) {
     std::ostringstream ss;
     ss << std::setprecision(precision_);
@@ -13,7 +13,7 @@ void Csv::write_row(Arg&& arg, Args&&... args) {
 }
 
 template <typename Container1D>
-static bool csv_read_row(const std::string& filepath, Container1D& data_out, std::size_t row_offset, std::size_t col_offset) {
+bool csv_read_row(const std::string& filepath, Container1D& data_out, std::size_t row_offset, std::size_t col_offset) {
     std::string directory, filename, ext, full;
     if (!parse_filepath(filepath, directory, filename, ext, full))
         return false;
@@ -45,7 +45,7 @@ static bool csv_read_row(const std::string& filepath, Container1D& data_out, std
 }
 
 template <typename Container2D>
-static bool csv_read_rows(const std::string& filepath, Container2D& data_out, std::size_t row_offset, std::size_t col_offset) {
+bool csv_read_rows(const std::string& filepath, Container2D& data_out, std::size_t row_offset, std::size_t col_offset) {
     std::string directory, filename, ext, full;
     if (!parse_filepath(filepath, directory, filename, ext, full))
         return false;
