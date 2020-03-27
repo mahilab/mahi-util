@@ -14,23 +14,44 @@ YieldInstruction::YieldInstruction() {
 YieldInstruction::~YieldInstruction() {
 }
 
-bool YieldInstruction::isOver() {
+bool YieldInstruction::is_over() {
    return true;
 }
 
-WaitForSeconds::WaitForSeconds(float duration) :
-   YieldInstruction()
+WaitForSeconds::WaitForSeconds(double sec) :
+    WaitForSeconds(seconds(sec))
+{ }
+
+WaitForSeconds::WaitForSeconds(Time duration) :
+   m_dur(duration)
 {
-    auto now = std::chrono::high_resolution_clock::now();
-    auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
-    m_endPoint = std::chrono::time_point_cast<std::chrono::milliseconds>(now) + std::chrono::milliseconds(static_cast<int>(1000 * duration));
+    m_clk.restart();
 }
 
-bool WaitForSeconds::isOver() {
-    auto now = std::chrono::high_resolution_clock::now();
-    auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
-    return now >= m_endPoint;
+bool WaitForSeconds::is_over() {
+    return m_clk.get_elapsed_time() >= m_dur;
 }
+
+WaitUntil::WaitUntil(std::function<bool()> func) :
+    m_func(func)
+{
+    
+}
+
+bool WaitUntil::is_over() {
+    return m_func();
+}
+
+WaitWhile::WaitWhile(std::function<bool()> func) :
+    m_func(func)
+{
+    
+}
+
+bool WaitWhile::is_over() {
+    return !m_func();
+}
+
 
 //==============================================================================
 // PromiseType
@@ -99,7 +120,7 @@ Coroutine::~Coroutine() {
     }
 }
 
-bool Coroutine::isOver() {
+bool Coroutine::is_over() {
     return m_coroutine.done();
 }
 
@@ -112,12 +133,12 @@ void Coroutine::stop() {
 // Enumerator
 //==============================================================================
 
-bool Enumerator::moveNext() {
+bool Enumerator::move_next() {
     if (m_ptr->m_stop) // coroutine has request stop
         return false;
     auto instruction = m_ptr->m_coroutine.promise().m_instruction;
     if (instruction) { // there is an instruction
-        if (instruction->isOver()) { // yield instruction is over
+        if (instruction->is_over()) { // yield instruction is over
             m_ptr->m_coroutine.resume();
             return !m_ptr->m_coroutine.done();
         }
@@ -146,7 +167,7 @@ Enumerator::Enumerator(Enumerator &&e) :
     e.m_ptr = nullptr;
 };
 
-std::shared_ptr<Coroutine> Enumerator::getCoroutine() {
+std::shared_ptr<Coroutine> Enumerator::get_coroutine() {
     return m_ptr;
 }
 

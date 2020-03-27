@@ -1,11 +1,15 @@
 #pragma once
 
+#include <Mahi/Util/Timing/Clock.hpp>
 #include <experimental/coroutine>
 #include <memory>
-#include <chrono>
+#include <functional>
+
 
 namespace mahi {
 namespace util {
+
+/// Coroutines modeled after Unity's courtines, using std::experimental::coroutine
 
 //==============================================================================
 // Forward Declarations / Typedefs
@@ -23,15 +27,33 @@ using SuspendNever  = std::experimental::suspend_never;
 struct YieldInstruction {
     YieldInstruction();
     virtual ~YieldInstruction();
-    virtual bool isOver();
+    virtual bool is_over();
 };
 
 /// Yield instruction which waits a certain duration in seconds
 struct WaitForSeconds : public YieldInstruction {
-    WaitForSeconds(float duration);
-    bool isOver() override;
+    WaitForSeconds(double sec);
+    WaitForSeconds(Time duration);
+    bool is_over() override;
 private:
-    std::chrono::time_point<std::chrono::high_resolution_clock, std::chrono::milliseconds> m_endPoint;
+    Clock m_clk;
+    Time m_dur;
+};
+
+/// Yield instruction which waits until the supplied function evalutes to true
+struct WaitUntil : public YieldInstruction {
+    WaitUntil(std::function<bool()> func);
+    bool is_over() override;
+private:
+    std::function<bool()> m_func;
+};
+
+/// Yield instruction which waits until the supplied function evalutes to true
+struct WaitWhile : public YieldInstruction {
+    WaitWhile(std::function<bool()> func);
+    bool is_over() override;
+private:
+    std::function<bool()> m_func;
 };
 
 //==============================================================================
@@ -62,13 +84,12 @@ struct Coroutine : public YieldInstruction
     /// Stops the Coroutine
     void stop();
     /// Returns true if the Coroutine is over
-    bool isOver() override;
+    bool is_over() override;
     /// Move semantics
     Coroutine(Coroutine &&other);
 
 private:
 
-    friend class Object;
     friend class Enumerator;
     friend struct PromiseType;
 
@@ -94,9 +115,9 @@ public:
     /// Move semantics
     Enumerator(Enumerator &&e);
     /// Advances Enumerator and returns true until completion
-    bool moveNext();
+    bool move_next();
     /// Gets the Coroutine
-    std::shared_ptr<Coroutine> getCoroutine();
+    std::shared_ptr<Coroutine> get_coroutine();
 
 private:
     friend struct PromiseType;
