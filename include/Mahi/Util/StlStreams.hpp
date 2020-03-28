@@ -22,6 +22,48 @@
 #include <utility>
 #include <valarray>
 
+#if defined _MSC_VER && _MSC_VER < 1924 
+
+namespace std {
+
+    /// Streams an std::vector
+    template <class Streamable, typename T>
+    Streamable& operator<<(Streamable& s, const std::vector<T>& c) {
+        if (c.size() == 0)
+            return s;
+        for (std::size_t i = 0; i < c.size() - 1; ++i) {
+            s << c[i];
+            s << ",";
+        }
+        s << c[c.size() - 1];
+        return s;
+    }
+
+    /// Streams an std::array
+    template <class Streamable, typename T, std::size_t N>
+    Streamable& operator<<(Streamable& s, const std::array<T, N>& c) {
+        if (c.size() == 0)
+            return s;
+        for (std::size_t i = 0; i < N - 1; ++i) {
+            s << c[i];
+            s << ",";
+        }
+        s << c[N - 1] ;
+        return s;
+    }
+}
+
+#else
+
+// NOTE: The follwing used to be able to stream any STL container
+// but it was broken by MSVC update 19.16.27026.1, and thus 
+// the temporary solution above for vectors and arrays was implemented. 
+// The original code will be enabled again at a future date when Microsoft
+// fixes their compiler.
+//
+// UPDATE: Microsoft seems to have fixed this issue in Visual Studio 2019.
+// The code will now check against the preprocessor variable _MSC_VER.
+
 namespace pretty_print
 {
     namespace detail
@@ -440,6 +482,7 @@ namespace std
     }
 }
 
+#endif // _MSVC_VER
 
 
 #endif  // H_PRETTY_PRINT
