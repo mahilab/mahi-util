@@ -22,7 +22,7 @@
 #include <utility>
 #include <valarray>
 
-#if defined _MSC_VER && _MSC_VER < 1924 
+#if defined _MSC_VER && _MSC_VER < 1924  && !defined __clang__
 
 namespace std {
 
