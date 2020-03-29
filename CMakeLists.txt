@@ -40,9 +40,8 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     if (UNIX)
-    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -DLinux -D_GNU_SOURCE=1 -std=c++11")
+        set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -DLinux -D_GNU_SOURCE=1 -std=c++11")
     endif()
-
     set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -O3") # ALL WARNINGS
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} /MP")    # MULTICORE BUILDS
@@ -104,12 +103,7 @@ if(MAHI_UTIL_LOG_CAPTURE_FILE)
 endif()
 
 # add source files
-if(UNIX)
-    # in 2020 Windows users are still confused with upper/lower cases ...
-    add_subdirectory(src/Mahi/Util)
-elseif(WIN32)
-    add_subdirectory(src/mahi/util)
-endif()
+add_subdirectory(src/Mahi/Util)
 
 # add include files
 file(GLOB_RECURSE MAHI_UTIL_HEADERS "include/*.hpp" "include/*.h" "include/*.inl")
@@ -128,9 +122,8 @@ target_include_directories(util
 target_link_libraries(util PUBLIC fmt::fmt)
 
 if(UNIX)
-    target_link_libraries(util PUBLIC fmt pthread rt)
+    target_link_libraries(util PUBLIC pthread rt)
 endif()
-
 if(WIN32)
     target_link_libraries(util PUBLIC winmm Pdh Version)
 endif()
