@@ -76,10 +76,10 @@ template <typename T>
 inline int sign(T val);
 
 /// Returns true if an integer is even
-inline bool isEven(int value);
+inline bool is_even(int value);
 
 /// Returns true if an integer is odd
-inline bool isOdd(int value);
+inline bool is_odd(int value);
 
 /// Clamps a float between min and max
 template <typename T>

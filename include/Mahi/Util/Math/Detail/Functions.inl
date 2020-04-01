@@ -6,11 +6,11 @@ inline int sign(T val) {
     return (T(0) < val) - (val < T(0));
 }
 
-inline bool isEven(int value) {
+inline bool is_even(int value) {
     return !(value % 2);
 }
 
-inline bool isOdd(int value) {
+inline bool is_odd(int value) {
     return (value % 2);
 }
 
