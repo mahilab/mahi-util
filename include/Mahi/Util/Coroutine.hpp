@@ -2,9 +2,8 @@
 
 #include <Mahi/Util/Timing/Clock.hpp>
 #include <experimental/coroutine>
-#include <memory>
 #include <functional>
-
+#include <memory>
 
 namespace mahi {
 namespace util {
@@ -34,9 +33,10 @@ struct YieldInstruction {
 struct YieldTime : public YieldInstruction {
     YieldTime(Time duration);
     bool is_over() override;
+
 private:
     Clock m_clk;
-    Time m_dur;
+    Time  m_dur;
 };
 
 /// Makes a YieldTime instruction
@@ -48,6 +48,7 @@ inline std::shared_ptr<YieldTime> yield_time(Time duration) {
 struct YieldUntil : public YieldInstruction {
     YieldUntil(std::function<bool()> func);
     bool is_over() override;
+
 private:
     std::function<bool()> m_func;
 };
@@ -61,6 +62,7 @@ inline std::shared_ptr<YieldUntil> yield_until(std::function<bool()> func) {
 struct YieldWhile : public YieldInstruction {
     YieldWhile(std::function<bool()> func);
     bool is_over() override;
+
 private:
     std::function<bool()> m_func;
 };
@@ -77,13 +79,13 @@ inline std::shared_ptr<YieldWhile> yield_while(std::function<bool()> func) {
 struct PromiseType {
     PromiseType();
     ~PromiseType();
-    SuspendAlways initial_suspend();
-    SuspendAlways final_suspend();
-    Enumerator get_return_object();
-    void unhandled_exception();
-    SuspendNever  return_void();
-    SuspendAlways yield_value(YieldInstruction* value);
-    SuspendAlways yield_value(std::shared_ptr<YieldInstruction>&& value);
+    SuspendAlways                     initial_suspend();
+    SuspendAlways                     final_suspend();
+    Enumerator                        get_return_object();
+    void                              unhandled_exception();
+    SuspendNever                      return_void();
+    SuspendAlways                     yield_value(YieldInstruction* value);
+    SuspendAlways                     yield_value(std::shared_ptr<YieldInstruction>&& value);
     std::shared_ptr<YieldInstruction> m_instruction;
 };
 
@@ -91,8 +93,7 @@ struct PromiseType {
 // Coroutine
 //==============================================================================
 
-struct Coroutine : public YieldInstruction
-{
+struct Coroutine : public YieldInstruction {
     /// Destructor
     ~Coroutine();
     /// Stops the Coroutine
@@ -100,10 +101,9 @@ struct Coroutine : public YieldInstruction
     /// Returns true if the Coroutine is over
     bool is_over() override;
     /// Move semantics
-    Coroutine(Coroutine &&other);
+    Coroutine(Coroutine&& other);
 
 private:
-
     friend class Enumerator;
     friend struct PromiseType;
 
@@ -111,8 +111,8 @@ private:
     Coroutine(std::experimental::coroutine_handle<PromiseType> coroutine);
 
 private:
-    std::experimental::coroutine_handle<PromiseType> m_coroutine; ///< underlying handle
-    bool m_stop;
+    std::experimental::coroutine_handle<PromiseType> m_coroutine;  ///< underlying handle
+    bool                                             m_stop;
 };
 
 //==============================================================================
@@ -121,13 +121,12 @@ private:
 
 class Enumerator {
 public:
-
     using promise_type = PromiseType;
 
     /// Destructor
     ~Enumerator();
     /// Move semantics
-    Enumerator(Enumerator &&e);
+    Enumerator(Enumerator&& e);
     /// Advances Enumerator and returns true until completion
     bool move_next();
     /// Gets the Coroutine
@@ -137,9 +136,10 @@ private:
     friend struct PromiseType;
     /// Constructor
     Enumerator(std::shared_ptr<Coroutine> h);
+
 private:
     std::shared_ptr<Coroutine> m_ptr;
 };
 
-} // namespace util
-} // namespace mahi
+}  // namespace util
+}  // namespace mahi
