@@ -31,30 +31,44 @@ struct YieldInstruction {
 };
 
 /// Yield instruction which waits a certain duration in seconds
-struct WaitForSeconds : public YieldInstruction {
-    WaitForSeconds(double sec);
-    WaitForSeconds(Time duration);
+struct YieldTime : public YieldInstruction {
+    YieldTime(Time duration);
     bool is_over() override;
 private:
     Clock m_clk;
     Time m_dur;
 };
 
+/// Makes a YieldTime instruction
+inline std::shared_ptr<YieldTime> yield_time(Time duration) {
+    return std::make_shared<YieldTime>(duration);
+}
+
 /// Yield instruction which waits until the supplied function evalutes to true
-struct WaitUntil : public YieldInstruction {
-    WaitUntil(std::function<bool()> func);
+struct YieldUntil : public YieldInstruction {
+    YieldUntil(std::function<bool()> func);
     bool is_over() override;
 private:
     std::function<bool()> m_func;
 };
 
+/// Makes a YieldUntil instruction
+inline std::shared_ptr<YieldUntil> yield_until(std::function<bool()> func) {
+    return std::make_shared<YieldUntil>(func);
+}
+
 /// Yield instruction which waits until the supplied function evalutes to true
-struct WaitWhile : public YieldInstruction {
-    WaitWhile(std::function<bool()> func);
+struct YieldWhile : public YieldInstruction {
+    YieldWhile(std::function<bool()> func);
     bool is_over() override;
 private:
     std::function<bool()> m_func;
 };
+
+/// Makes a YieldWhile instruction
+inline std::shared_ptr<YieldWhile> yield_while(std::function<bool()> func) {
+    return std::make_shared<YieldWhile>(func);
+}
 
 //==============================================================================
 // PromiseType

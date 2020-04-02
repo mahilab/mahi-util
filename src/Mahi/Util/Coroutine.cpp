@@ -18,37 +18,33 @@ bool YieldInstruction::is_over() {
    return true;
 }
 
-WaitForSeconds::WaitForSeconds(double sec) :
-    WaitForSeconds(seconds(sec))
-{ }
-
-WaitForSeconds::WaitForSeconds(Time duration) :
+YieldTime::YieldTime(Time duration) :
    m_dur(duration)
 {
     m_clk.restart();
 }
 
-bool WaitForSeconds::is_over() {
+bool YieldTime::is_over() {
     return m_clk.get_elapsed_time() >= m_dur;
 }
 
-WaitUntil::WaitUntil(std::function<bool()> func) :
+YieldUntil::YieldUntil(std::function<bool()> func) :
     m_func(func)
 {
     
 }
 
-bool WaitUntil::is_over() {
+bool YieldUntil::is_over() {
     return m_func();
 }
 
-WaitWhile::WaitWhile(std::function<bool()> func) :
+YieldWhile::YieldWhile(std::function<bool()> func) :
     m_func(func)
 {
     
 }
 
-bool WaitWhile::is_over() {
+bool YieldWhile::is_over() {
     return !m_func();
 }
 
