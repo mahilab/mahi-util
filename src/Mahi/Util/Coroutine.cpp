@@ -88,11 +88,11 @@ SuspendNever PromiseType::return_void() {
 }
 
 SuspendAlways PromiseType::yield_value(YieldInstruction* value) {
-   m_instruction = std::unique_ptr<YieldInstruction>(value);
+   m_instruction = std::shared_ptr<YieldInstruction>(value);
    return SuspendAlways{};
 }
 
-SuspendAlways PromiseType::yield_value(std::unique_ptr<YieldInstruction>&& value) {
+SuspendAlways PromiseType::yield_value(std::shared_ptr<YieldInstruction>&& value) {
     m_instruction = std::move(value);
     return SuspendAlways{};
 }

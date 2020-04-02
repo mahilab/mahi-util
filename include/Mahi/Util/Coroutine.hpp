@@ -69,8 +69,8 @@ struct PromiseType {
     void unhandled_exception();
     SuspendNever  return_void();
     SuspendAlways yield_value(YieldInstruction* value);
-    SuspendAlways yield_value(std::unique_ptr<YieldInstruction>&& value);
-    std::unique_ptr<YieldInstruction> m_instruction;
+    SuspendAlways yield_value(std::shared_ptr<YieldInstruction>&& value);
+    std::shared_ptr<YieldInstruction> m_instruction;
 };
 
 //==============================================================================
