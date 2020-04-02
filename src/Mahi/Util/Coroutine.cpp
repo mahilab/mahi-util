@@ -88,12 +88,12 @@ SuspendNever PromiseType::return_void() {
 }
 
 SuspendAlways PromiseType::yield_value(YieldInstruction* value) {
-   m_instruction = std::shared_ptr<YieldInstruction>(value);
+   m_instruction = std::unique_ptr<YieldInstruction>(value);
    return SuspendAlways{};
 }
 
-SuspendAlways PromiseType::yield_value(std::shared_ptr<YieldInstruction> value) {
-    m_instruction = value;
+SuspendAlways PromiseType::yield_value(std::unique_ptr<YieldInstruction>&& value) {
+    m_instruction = std::move(value);
     return SuspendAlways{};
 }
 
@@ -135,7 +135,7 @@ void Coroutine::stop() {
 bool Enumerator::move_next() {
     if (m_ptr->m_stop) // coroutine has request stop
         return false;
-    auto instruction = m_ptr->m_coroutine.promise().m_instruction;
+    auto& instruction = m_ptr->m_coroutine.promise().m_instruction;
     if (instruction) { // there is an instruction
         if (instruction->is_over()) { // yield instruction is over
             m_ptr->m_coroutine.resume();
