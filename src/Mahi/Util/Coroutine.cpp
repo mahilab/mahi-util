@@ -128,7 +128,7 @@ void Coroutine::stop() {
 // Enumerator
 //==============================================================================
 
-bool Enumerator::move_next() {
+bool Enumerator::step() {
     if (m_ptr->m_stop) // coroutine has request stop
         return false;
     auto& instruction = m_ptr->m_coroutine.promise().m_instruction;
@@ -164,6 +164,38 @@ Enumerator::Enumerator(Enumerator &&e) :
 
 std::shared_ptr<Coroutine> Enumerator::get_coroutine() {
     return m_ptr;
+}
+
+//==============================================================================
+// Coroutine Manager
+//==============================================================================
+
+std::shared_ptr<util::Coroutine> CoroutineManager::start(util::Enumerator&& e) {
+    auto h = e.get_coroutine();
+    m_coroutines.push_back(std::move(e));
+    return h;
+}
+
+void CoroutineManager::stop(std::shared_ptr<util::Coroutine> routine) {
+    if (routine)
+        routine->stop();
+}
+
+void CoroutineManager::stop_all() { m_coroutines.clear(); }
+
+int CoroutineManager::count() const { return static_cast<int>(m_coroutines.size()); }
+
+void CoroutineManager::step_all() {
+    if (!m_coroutines.empty())
+    {
+        std::vector<util::Enumerator> temp;
+        temp.swap(m_coroutines);
+        for (auto &coro : temp)
+        {
+            if (coro.step())
+                m_coroutines.push_back(std::move(coro));
+        }
+    }
 }
 
 } // namespace util
