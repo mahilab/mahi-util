@@ -95,11 +95,19 @@ inline T clamp01(T value);
 
 /// Wraps an angle in radians to within [-PI, PI)
 template <typename T>
-inline T wrap_to_pi(T angle);
+inline T wrap_to_pi(T rad);
 
 /// Wraps an angle in radians to within [0, 2*PI)
 template <typename T>
-inline T wrap_to_2pi(T angle);
+inline T wrap_to_2pi(T rad);
+
+/// Wraps an angle in degrees to within [-180, 180)
+template <typename T>
+inline T wrap_to_180(T deg);
+
+/// Wraps an angle in degrees to within [0, 360)
+template <typename T>
+inline T wrap_to_360(T deg);
 
 /// Determines if two floats a and b are approximately equal
 template <typename T>
