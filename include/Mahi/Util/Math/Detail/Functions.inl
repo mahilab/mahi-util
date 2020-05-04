@@ -31,19 +31,35 @@ inline T clamp01(T value) {
 }
 
 template <typename T>
-inline T wrap_toPi(T angle) {
-    angle = std::fmod(angle + PI, TWOPI);
-    if (angle < 0)
-        angle += TWOPI;
-    return angle - PI;
+inline T wrap_to_pi(T rad) {
+    rad = std::fmod(rad + PI, TWOPI);
+    if (rad < 0)
+        rad += TWOPI;
+    return rad - PI;
 }
 
 template <typename T>
-inline T wrap_to_2pi(T angle) {
-    angle = std::fmod(angle, TWOPI);
-    if (angle < 0)
-        angle += TWOPI;
-    return angle;
+inline T wrap_to_2pi(T rad) {
+    rad = std::fmod(rad, TWOPI);
+    if (rad < 0)
+        rad += TWOPI;
+    return rad;
+}
+
+template <typename T>
+inline T wrap_to_180(T deg) {
+    deg = std::fmod(deg + 180, 360);
+    if (deg < 0)
+        deg += 360;
+    return deg - 180;
+}
+
+template <typename T>
+inline T wrap_to_360(T deg) {
+    deg = std::fmod(deg, 360);
+    if (deg < 0)
+        deg += 360;
+    return deg;
 }
 
 template <typename T>

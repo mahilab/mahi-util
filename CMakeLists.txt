@@ -122,7 +122,10 @@ target_include_directories(util
 target_link_libraries(util PUBLIC fmt::fmt)
 
 if(UNIX)
-    target_link_libraries(util PUBLIC pthread rt)
+    target_link_libraries(util PUBLIC pthread)
+    if(NOT APPLE)
+        target_link_libraries(util PUBLIC rt)
+    endif()
 endif()
 if(WIN32)
     target_link_libraries(util PUBLIC winmm Pdh Version)

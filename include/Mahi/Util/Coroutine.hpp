@@ -4,6 +4,7 @@
 #include <experimental/coroutine>
 #include <functional>
 #include <memory>
+#include <vector>
 
 namespace mahi {
 namespace util {
@@ -128,7 +129,7 @@ public:
     /// Move semantics
     Enumerator(Enumerator&& e);
     /// Advances Enumerator and returns true until completion
-    bool move_next();
+    bool step();
     /// Gets the Coroutine
     std::shared_ptr<Coroutine> get_coroutine();
 
@@ -139,6 +140,30 @@ private:
 
 private:
     std::shared_ptr<Coroutine> m_ptr;
+};
+
+//==============================================================================
+// Coroutine Manager
+//==============================================================================
+
+/// Utility class to help manage the the lifetime of Coroutines
+class CoroutineManager {
+public:
+    /// Starts a coroutine
+    std::shared_ptr<Coroutine> start(Enumerator &&coro);
+    /// Stops an already running coroutine
+    void stop(std::shared_ptr<Coroutine> coro);
+    /// Stops all running coroutines
+    void stop_all();
+    /// Returns the number of coroutines running
+    int count() const;
+    /// Steps all running coroutines, usually called at a regular interval 
+    /// (e.g. loop or refresh rate). If you are an end user (i.e.. you didn't
+    /// construct this manager yourself), you likely don't want to call this!
+    void step_all();
+private:
+    /// Vector of running coroutines
+    std::vector<Enumerator> m_coroutines;  
 };
 
 }  // namespace util
