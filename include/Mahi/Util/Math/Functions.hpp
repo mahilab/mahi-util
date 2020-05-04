@@ -168,6 +168,10 @@ inline typename Container::value_type stddev_p(const Container& data);
 template <class Container>
 inline typename Container::value_type stddev_s(const Container& data);
 
+/// Computes a the root mean square value of a vector of data
+template <class Container>
+inline typename Container::value_type sum(const Container& data);
+
 /// Computes a linear regression slope and intercept {m, b} for y = m*x + b
 template <class ContainerX, class ContainerY, typename T>
 inline void linear_regression(const ContainerX& x, const ContainerY& y, T& mOut, T& bOut);

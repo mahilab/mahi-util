@@ -207,6 +207,16 @@ inline typename Container::value_type stddev_s(const Container& data) {
     }
 }
 
+template <class Container>
+inline typename Container::value_type rms(const Container& data) {
+    typename Container::value_type square = 0;
+    typename Container::value_type size = static_cast<typename Container::value_type>(data.size());
+    for (std::size_t i = 0; i < data.size(); ++i)
+        square += pow(data[i],2);
+    typename Container::value_type root = sqrt(square/size);
+    return root;
+}
+
 template <class ContainerX, class ContainerY, typename T>
 inline void linear_regression(const ContainerX& x, const ContainerY& y, T& mOut, T& bOut) {
     assert(x.size() == y.size());
