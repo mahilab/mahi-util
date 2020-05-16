@@ -25,9 +25,8 @@ option(MAHI_UTIL_LOG_CAPTURE_FILE "Turn ON to enable filename capture in logs"  
 # create the project
 project(mahi-util VERSION 1.0.0 LANGUAGES C CXX)
 
-# tell user they can't have shared version if they try
 if (BUILD_SHARED_LIBS)
-    message(FATAL_ERROR "mahi::util does not support shared libaries")
+    message(WARNING "mahi::util has not beeing tested as a shared library. Proceed at your own risk.")
 endif()
 
 # add ./cmake to CMake module path so our .cmake files can be found
