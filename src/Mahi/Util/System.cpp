@@ -341,9 +341,9 @@ struct VersionGetter
         const auto system = L"kernel32.dll";
         DWORD dummy;
         const auto cbInfo =
-            ::GetFileVersionInfoSizeExW(FILE_VER_GET_NEUTRAL, system, &dummy);
+            ::GetFileVersionInfoSizeW(system, &dummy);
         std::vector<char> buffer(cbInfo);
-        ::GetFileVersionInfoExW(FILE_VER_GET_NEUTRAL, system, dummy, (DWORD)buffer.size(), &buffer[0]);
+        ::GetFileVersionInfoW(system, dummy, (DWORD)buffer.size(), &buffer[0]);
         void *p = nullptr;
         UINT size = 0;
         ::VerQueryValueW(buffer.data(), L"\\", &p, &size);
