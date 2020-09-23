@@ -121,7 +121,7 @@ inline T interp(T x, T x0, T x1, T y0, T y1);
 template <typename T>
 inline int order_of_mag(T value);
 
-/// Precison
+/// Precision
 inline std::size_t precision(int order);
 
 /// Rounds a float up to the nearest interval
@@ -143,6 +143,10 @@ inline T pd_controller(T kp,T kd,T x_ref,T x,T xd_ref,T xd);
 /// Logistic sigmoid
 template <typename T>
 inline T sigmoid(T a);
+
+/// Linearly remaps x from [x0,x1] to [y0,y1]
+template <typename T>
+inline T remap(T x, T x0, T x1, T y0, T y1); 
 
 //==============================================================================
 // STATISTICS
