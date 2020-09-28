@@ -429,7 +429,7 @@ const std::string& os_version() {
 #endif
 
 //==============================================================================
-// PEROFRMANCE MONITORING FUNCTIONS (WINDOWS)
+// PERFORMANCE MONITORING FUNCTIONS (WINDOWS)
 //==============================================================================
 
 #ifdef _WIN32
@@ -540,6 +540,17 @@ uint64 ram_used_process() {
     GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
     return pmc.WorkingSetSize;
 }
+
+#else // TODO
+
+double cpu_usage_total() { return 0;}
+double cpu_usage_process() { return 0;}
+uint64 virt_mem_available() { return 0;}
+uint64 virt_mem_used_total() { return 0;}
+uint64 virt_mem_used_process() { return 0;}
+uint64 ram_available() { return 0;}
+uint64 ram_used_total() { return 0;}
+uint64 ram_used_process() { return 0;}
 
 #endif
 
