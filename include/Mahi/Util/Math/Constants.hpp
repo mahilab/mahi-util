@@ -45,5 +45,11 @@ constexpr double RAD2DEG    = 180 / PI;
 constexpr double INCH2METER = 0.0254;
 constexpr double METER2INCH = 1.0 / INCH2METER;
 
+//==============================================================================
+// MISC
+//==============================================================================
+
+constexpr double G = 9.80665; // [m/s^2]
+
 } // namespace util
 } // namespace mahi
