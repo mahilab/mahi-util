@@ -18,7 +18,6 @@
 #include <time.h>
 #include <unistd.h>
 #include <errno.h>
-#include <sys/sysctl.h>
 #endif
 
 namespace mahi {
