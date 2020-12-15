@@ -127,7 +127,7 @@ if(UNIX)
     endif()
 endif()
 if(WIN32)
-    target_link_libraries(util PUBLIC winmm Pdh Version)
+    target_link_libraries(util PUBLIC winmm pdh version)
 endif()
 
 #===============================================================================
