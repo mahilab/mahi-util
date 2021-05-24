@@ -123,9 +123,10 @@ void cls();
 
 /// Key Codes
 enum {
-    KEY_ESCAPE    = 0,
+    KEY_ESCAPE    = 27,
     KEY_ENTER     = 1,
     KEY_BACKSPACE = 8,
+    KEY_TAB       = 9,
     KEY_SPACE     = 32,
 
     KEY_INSERT = 2,

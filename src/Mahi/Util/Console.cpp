@@ -342,16 +342,16 @@ int get_key(void) {
         case 0: {
             int kk;
             switch (kk = getch()) {
-                case 71: return KEY_NUMPAD7;
-                case 72: return KEY_NUMPAD8;
-                case 73: return KEY_NUMPAD9;
-                case 75: return KEY_NUMPAD4;
-                case 77: return KEY_NUMPAD6;
-                case 79: return KEY_NUMPAD1;
-                case 80: return KEY_NUMPAD2;
-                case 81: return KEY_NUMPAD3;
-                case 82: return KEY_NUMPAD0;
-                case 83: return KEY_NUMDEL;
+                case 71: return KEY_HOME;
+                case 72: return KEY_UP;
+                case 73: return KEY_PGUP;
+                case 75: return KEY_LEFT;
+                case 77: return KEY_RIGHT;
+                case 79: return KEY_END;
+                case 80: return KEY_DOWN;
+                case 81: return KEY_PGDOWN;
+                case 82: return KEY_INSERT;
+                case 83: return KEY_DELETE;
                 default: return kk-59+KEY_F1; // Function keys
             }}
         case 224: {
@@ -373,8 +373,9 @@ int get_key(void) {
         case 10:  return KEY_ENTER;
         case 127: return KEY_BACKSPACE;
 #else
-        case 10: return KEY_ENTER;
         case 8:  return KEY_BACKSPACE;
+        case 9:  return KEY_TAB;
+        case 13: return KEY_ENTER;
 #endif
 
 #ifdef _WIN32

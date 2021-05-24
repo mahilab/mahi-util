@@ -31,11 +31,11 @@ int main(int argc, char const *argv[])
     std::cout << "get_key() is blocking, so now you must press \"Enter\" or \"Esc\" before continuing this example" << std::endl;
     // Enter and KEY_ESCAPE are 0 and 1, so we will initialize ch to -1 so that we don't automatically hit the case
     int ch = -1;
-    while(ch != (int)KEY_ENTER && ch != (int)KEY_ESCAPE) {
+    while(ch != KEY_ENTER && ch != KEY_ESCAPE) {
         // waits until we get a keypress and then assigns that key value to ch
         ch = get_key();
         // if the user doesn't press k, tell them they made a mistake, and tell them to press K!
-        if(ch != (int)KEY_ENTER && ch != (int)KEY_ESCAPE) std::cout << "Silly you, you have to press \"Enter\" or \"Esc\", not " << (unsigned char)toupper(ch) << std::endl;
+        if(ch != KEY_ENTER && ch != KEY_ESCAPE) std::cout << "Silly you, you have to press \"Enter\" or \"Esc\", not " << (unsigned char)toupper(ch) << std::endl;
     }
     
     
