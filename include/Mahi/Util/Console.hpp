@@ -121,50 +121,50 @@ void beep();
 /// Clears screen, resets all attributes and moves cursor home (thread-safe)
 void cls();
 
-/// Key Codes
+constexpr int AsciiEscape = 200; // arbitrary number to represent escape sequence before enums
+
+/// Key Codes based on microsoft ascii codes https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-6.0/aa299374(v=vs.60)
 enum {
-    KEY_ESCAPE    = 27,
-    KEY_ENTER     = 1,
     KEY_BACKSPACE = 8,
     KEY_TAB       = 9,
+    KEY_ENTER     = 13,
+    KEY_ESCAPE    = 27,
     KEY_SPACE     = 32,
 
-    KEY_INSERT = 2,
-    KEY_HOME   = 3,
-    KEY_PGUP   = 4,
-    KEY_DELETE = 5,
-    KEY_END    = 6,
-    KEY_PGDOWN = 7,
+    KEY_NUM0 = 48,
+    KEY_NUM1 = 49,
+    KEY_NUM2 = 50,
+    KEY_NUM3 = 51,
+    KEY_NUM4 = 52,
+    KEY_NUM5 = 53,
+    KEY_NUM6 = 54,
+    KEY_NUM7 = 55,
+    KEY_NUM8 = 56,
+    KEY_NUM9 = 57,
 
-    KEY_UP    = 14,
-    KEY_DOWN  = 15,
-    KEY_LEFT  = 16,
-    KEY_RIGHT = 17,
+    KEY_F1  = AsciiEscape + 59,
+    KEY_F2  = AsciiEscape + 60,
+    KEY_F3  = AsciiEscape + 61,
+    KEY_F4  = AsciiEscape + 62,
+    KEY_F5  = AsciiEscape + 63,
+    KEY_F6  = AsciiEscape + 64,
+    KEY_F7  = AsciiEscape + 65,
+    KEY_F8  = AsciiEscape + 66,
+    KEY_F9  = AsciiEscape + 67,
+    KEY_F10 = AsciiEscape + 68,
+    KEY_F11 = AsciiEscape + 69,
+    KEY_F12 = AsciiEscape + 70,
 
-    KEY_F1  = 18,
-    KEY_F2  = 19,
-    KEY_F3  = 20,
-    KEY_F4  = 21,
-    KEY_F5  = 22,
-    KEY_F6  = 23,
-    KEY_F7  = 24,
-    KEY_F8  = 25,
-    KEY_F9  = 26,
-    KEY_F10 = 27,
-    KEY_F11 = 28,
-    KEY_F12 = 29,
-
-    KEY_NUMDEL  = 30,
-    KEY_NUMPAD0 = 31,
-    KEY_NUMPAD1 = 127,
-    KEY_NUMPAD2 = 128,
-    KEY_NUMPAD3 = 129,
-    KEY_NUMPAD4 = 130,
-    KEY_NUMPAD5 = 131,
-    KEY_NUMPAD6 = 132,
-    KEY_NUMPAD7 = 133,
-    KEY_NUMPAD8 = 134,
-    KEY_NUMPAD9 = 135
+    KEY_HOME   = AsciiEscape + 71,
+    KEY_UP     = AsciiEscape + 72,
+    KEY_PGUP   = AsciiEscape + 73,
+    KEY_LEFT   = AsciiEscape + 75,
+    KEY_RIGHT  = AsciiEscape + 77,
+    KEY_END    = AsciiEscape + 79,
+    KEY_DOWN   = AsciiEscape + 80,
+    KEY_PGDOWN = AsciiEscape + 81,
+    KEY_INSERT = AsciiEscape + 82,
+    KEY_DELETE = AsciiEscape + 83
 };
 
 }  // namespace util

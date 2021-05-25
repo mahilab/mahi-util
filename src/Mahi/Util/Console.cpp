@@ -352,7 +352,7 @@ int get_key(void) {
                 case 81: return KEY_PGDOWN;
                 case 82: return KEY_INSERT;
                 case 83: return KEY_DELETE;
-                default: return kk-59+KEY_F1; // Function keys
+                default: return kk-59 + KEY_F1; // Function keys
             }}
         case 224: {
             int kk;
@@ -367,7 +367,9 @@ int get_key(void) {
                 case 81: return KEY_PGDOWN;
                 case 82: return KEY_INSERT;
                 case 83: return KEY_DELETE;
-                default: return kk-123+KEY_F1; // Function keys
+                case 133: return KEY_F11;
+                case 134: return KEY_F12;
+                default: return kk; // Catch all
             }}
 #ifdef __APPLE__
         case 10:  return KEY_ENTER;
@@ -376,6 +378,17 @@ int get_key(void) {
         case 8:  return KEY_BACKSPACE;
         case 9:  return KEY_TAB;
         case 13: return KEY_ENTER;
+        case 32: return KEY_SPACE;
+        case 48: return KEY_NUM0;
+        case 49: return KEY_NUM1;
+        case 50: return KEY_NUM2;
+        case 51: return KEY_NUM3;
+        case 52: return KEY_NUM4;
+        case 53: return KEY_NUM5;
+        case 54: return KEY_NUM6;
+        case 55: return KEY_NUM7;
+        case 56: return KEY_NUM8;
+        case 57: return KEY_NUM9;
 #endif
 
 #ifdef _WIN32
