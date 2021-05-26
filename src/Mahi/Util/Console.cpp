@@ -352,7 +352,7 @@ int get_key(void) {
                 case 81: return KEY_PGDOWN;
                 case 82: return KEY_INSERT;
                 case 83: return KEY_DELETE;
-                default: return kk-59 + KEY_F1; // Function keys
+                default: return kk; // Function keys
             }}
         case 224: {
             int kk;
